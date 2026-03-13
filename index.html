@@ -1641,6 +1641,9 @@ function setCloudStatus(status) {
   else { el.textContent = '⏳ sync'; el.style.color = '#6b7280'; el.style.background = 'rgba(255,255,255,0.08)'; }
 }
 
+// IDs válidos dos membros do Jovens IBC
+const _JOVENS_IDS = ["1773430666420","1773430666421","1773430666422","1773430666423","1773430666424","1773430666425","1773430666426","1773430666427"];
+
 async function carregarNuvem() {
   try {
     const controller = new AbortController();
@@ -1653,6 +1656,26 @@ async function carregarNuvem() {
     if (!res.ok) { setCloudStatus('error'); return false; }
     const json = await res.json();
     const d = json.record;
+
+    // Verifica se os dados da nuvem são do Jovens IBC
+    // Se tiver membros com IDs diferentes dos válidos, ignora e limpa a nuvem
+    const nuvemValida = !d.membros || d.membros.length === 0 ||
+      d.membros.some(m => _JOVENS_IDS.includes(m.id));
+
+    if (!nuvemValida) {
+      // Dados errados na nuvem — sobrescreve com dados limpos
+      mostrarToast('🧹 Limpando dados inválidos da nuvem...');
+      await fetch(JSONBIN_URL, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_KEY },
+        body: JSON.stringify({ membros, pagamentos: [], gastos: [], saldoBanco: null, savedAt: new Date().toISOString() })
+      });
+      pagamentos = []; gastos = []; saldoBanco = null;
+      setCloudStatus('ok');
+      mostrarToast('✅ Nuvem limpa! Dados do Jovens IBC prontos.');
+      return true;
+    }
+
     if (d.membros && d.membros.length > 0) membros = d.membros;
     if (d.pagamentos && d.pagamentos.length > 0) pagamentos = d.pagamentos;
     if (d.gastos && d.gastos.length > 0) gastos = d.gastos;
