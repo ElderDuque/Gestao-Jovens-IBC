@@ -6,14 +6,14 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Grupo de Jovens IBC">
-<meta name="application-name" content="Grupo de Jovens IBC">
+<meta name="apple-mobile-web-app-title" content="Gestão M de Mídia">
+<meta name="application-name" content="Gestão M de Mídia">
 <meta name="theme-color" content="#0a0e12">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/png" href="icon-192.png">
   <link rel="apple-touch-icon" href="icon-192.png">
 
-<title>Jovens IBC — Mensalidades</title>
+<title>Gestão M de Mídia</title>
 <!-- v3.1 -->
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
@@ -276,15 +276,15 @@
 <div id="splashScreen" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999;background:#0a0c10;overflow:hidden;touch-action:none;user-select:none;font-family:'Syne',sans-serif;">
   <!-- glows -->
   <div style="position:absolute;top:-180px;left:-180px;width:520px;height:520px;background:radial-gradient(circle,rgba(139,92,246,0.09) 0%,transparent 70%);pointer-events:none"></div>
-  <div style="position:absolute;bottom:-200px;right:-150px;width:480px;height:480px;background:radial-gradient(circle,rgba(124,58,237,0.07) 0%,transparent 70%);pointer-events:none"></div>
+  <div style="position:absolute;bottom:-200px;right:-150px;width:480px;height:480px;background:radial-gradient(circle,rgba(0,180,255,0.07) 0%,transparent 70%);pointer-events:none"></div>
 
   <!-- wrapper centralizado com flexbox simples -->
   <div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 48px;box-sizing:border-box;">
 
-    <div id="splashLogo" style="width:88px;height:88px;border-radius:22px;background:linear-gradient(135deg,#8b5cf6,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:40px;margin-bottom:24px;box-shadow:0 0 50px rgba(139,92,246,0.35);opacity:0;transform:scale(0.7);transition:opacity 0.6s ease,transform 0.6s cubic-bezier(.34,1.56,.64,1)">💰</div>
+    <div id="splashLogo" style="width:88px;height:88px;border-radius:22px;background:linear-gradient(135deg,#8b5cf6,#00b4d8);display:flex;align-items:center;justify-content:center;font-size:40px;margin-bottom:24px;box-shadow:0 0 50px rgba(139,92,246,0.35);opacity:0;transform:scale(0.7);transition:opacity 0.6s ease,transform 0.6s cubic-bezier(.34,1.56,.64,1)">💰</div>
 
     <div id="splashTitle" style="font-size:17px;font-weight:800;color:#e8eaf0;text-align:center;line-height:1.4;opacity:0;transform:translateY(16px);transition:opacity 0.6s ease 0.2s,transform 0.6s ease 0.2s;width:100%;word-break:break-word;overflow-wrap:break-word;">
-      Controle Financeiro<br><span style="color:#8b5cf6">Jovens IBC</span>
+      Gestão do<br><span style="color:#8b5cf6">Jovens IBC</span>
     </div>
 
     <div id="splashSub" style="margin-top:10px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#6b7280;text-align:center;opacity:0;transform:translateY(10px);transition:opacity 0.5s ease 0.4s,transform 0.5s ease 0.4s;">Gestão de Mensalidades</div>
@@ -299,7 +299,7 @@
         <span onclick="toggleSenha()" id="olhoSenha" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);cursor:pointer;font-size:18px;opacity:0.6">👁️</span>
       </div>
       <div id="erroSenha" style="color:#ff6b6b;font-size:12px;min-height:16px;text-align:center"></div>
-      <button onclick="verificarSenha()" style="width:100%;background:linear-gradient(135deg,#8b5cf6,#7c3aed);border:none;border-radius:14px;padding:14px;font-family:'Syne',sans-serif;font-weight:700;font-size:15px;color:#000;cursor:pointer;box-shadow:0 4px 24px rgba(139,92,246,0.3);">Entrar →</button>
+      <button onclick="verificarSenha()" style="width:100%;background:linear-gradient(135deg,#8b5cf6,#00b4d8);border:none;border-radius:14px;padding:14px;font-family:'Syne',sans-serif;font-weight:700;font-size:15px;color:#000;cursor:pointer;box-shadow:0 4px 24px rgba(139,92,246,0.3);">Entrar →</button>
     </div>
 
   </div>
@@ -375,7 +375,7 @@ function mostrarBannerPWA() {
   if (banner) return;
   banner = document.createElement('div');
   banner.id = 'pwaBanner';
-  banner.style.cssText = 'position:fixed;bottom:0;left:0;right:0;z-index:7000;background:linear-gradient(135deg,#8b5cf6,#7c3aed);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 -4px 20px rgba(139,92,246,0.3);';
+  banner.style.cssText = 'position:fixed;bottom:0;left:0;right:0;z-index:7000;background:linear-gradient(135deg,#8b5cf6,#00b4d8);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 -4px 20px rgba(139,92,246,0.3);';
   banner.innerHTML = `
     <div style="display:flex;align-items:center;gap:10px">
       <span style="font-size:24px">📲</span>
@@ -408,7 +408,7 @@ window.addEventListener('appinstalled', () => {
 </script>
 
 
-  <div class="logo" style="display:flex;align-items:center;gap:8px">Jovens<span>IBC</span>
+  <div class="logo" style="display:flex;align-items:center;gap:8px">Gestão<span>Jovens IBC</span>
     <span id="cloudStatus" title="Status da nuvem" style="font-size:11px;padding:2px 8px;border-radius:20px;background:rgba(255,255,255,0.08);color:#6b7280;font-family:sans-serif;font-weight:500;letter-spacing:0">⏳ sync</span>
   </div>
   <div style="display:flex;align-items:center;gap:10px">
@@ -470,6 +470,7 @@ window.addEventListener('appinstalled', () => {
 
   <!-- HOME -->
   <div class="section active" id="tab-home">
+
     <div style="padding:8px 0 20px">
       <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:22px;margin-bottom:4px">👋 Bem-vindo!</div>
       <div style="font-size:13px;color:var(--muted)">Resumo do mês atual</div>
@@ -693,6 +694,57 @@ window.addEventListener('appinstalled', () => {
       <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px;margin-bottom:14px">Registros Identificados</div>
       <div id="registrosIdentificados"><div style="color:var(--muted);font-size:13px">Nenhum registro analisado ainda.</div></div>
     </div>
+
+    <!-- PDF Bancário - Comparação -->
+    <div style="display:flex;align-items:center;gap:12px;margin:20px 0">
+      <div style="flex:1;height:1px;background:var(--border)"></div>
+      <span style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">conferir banco</span>
+      <div style="flex:1;height:1px;background:var(--border)"></div>
+    </div>
+
+    <div class="parse-section">
+      <div style="margin-bottom:14px">
+        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px">🔍 Conferir PDF do Banco</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:3px">Carregue o extrato — o app mostra o que bate e o que diverge</div>
+      </div>
+      <label for="pdfBancoImportInput" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:24px 20px;border:2px dashed var(--border);border-radius:12px;cursor:pointer;background:var(--surface2);margin-bottom:12px">
+        <div style="font-size:36px">🏦</div>
+        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:var(--text)">Clique para selecionar o PDF do banco</div>
+        <div style="font-size:12px;color:var(--muted)">Sem necessidade de chave API</div>
+        <input type="file" id="pdfBancoImportInput" accept=".pdf" style="display:none" onchange="lerPdfBancoConferir(this)">
+      </label>
+      <div id="pdfConferirStatus" style="display:none;padding:10px 14px;border-radius:10px;font-size:13px;margin-bottom:10px"></div>
+
+      <!-- Resultado da conferência -->
+      <div id="pdfConferirResultado" style="display:none">
+
+        <!-- Saldo e data -->
+        <div style="background:var(--surface2);border-radius:12px;padding:14px;margin-bottom:16px">
+          <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Definir saldo do extrato</div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
+            <div style="flex:1;min-width:130px">
+              <div style="font-size:12px;color:var(--muted);margin-bottom:4px">Saldo (R$)</div>
+              <input type="number" id="pdfConferirSaldo" step="0.01" placeholder="Ex: 211.98" style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:9px;font-size:14px;outline:none">
+            </div>
+            <div style="flex:1;min-width:130px">
+              <div style="font-size:12px;color:var(--muted);margin-bottom:4px">Data</div>
+              <input type="date" id="pdfConferirData" style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:9px;font-size:14px;outline:none">
+            </div>
+            <button onclick="confirmarSaldoConferir()" style="background:var(--accent);color:#000;border:none;border-radius:8px;padding:9px 18px;font-family:'Syne',sans-serif;font-weight:700;font-size:13px;cursor:pointer">💾 Salvar Saldo</button>
+          </div>
+        </div>
+
+        <!-- Texto bruto do PDF -->
+        <details style="margin-bottom:16px">
+          <summary style="font-size:13px;color:var(--muted);cursor:pointer;padding:8px 0">📄 Ver texto extraído do PDF ▼</summary>
+          <textarea id="pdfBancoTextoArea" style="width:100%;min-height:100px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:10px;font-size:11px;font-family:monospace;resize:vertical;margin-top:8px" readonly></textarea>
+        </details>
+
+        <!-- Comparação -->
+        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px;margin-bottom:12px">📊 Comparação com o App</div>
+        <div id="pdfConferirComparacao"></div>
+      </div>
+    </div>
   </div>
 
   <!-- EDITAR MEMBROS -->
@@ -771,6 +823,7 @@ window.addEventListener('appinstalled', () => {
             <input class="form-control" id="bancoDataInput" type="date">
           </div>
           <button class="btn btn-primary" onclick="definirSaldoBancoManual()" style="height:42px;white-space:nowrap;padding:0 20px">✅ Sincronizar</button>
+          <button onclick="reverterSaldoBanco()" title="Desfazer última alteração" style="height:42px;padding:0 14px;background:rgba(255,107,107,0.12);border:1px solid rgba(255,107,107,0.3);border-radius:10px;color:#ff6b6b;font-size:18px;cursor:pointer">↩️</button>
         </div>
       </div>
 
@@ -815,6 +868,36 @@ window.addEventListener('appinstalled', () => {
           </summary>
           <div id="bancoDiagnostico" style="padding:16px"></div>
         </details>
+
+        <!-- Calculadora de conferência -->
+        <div style="margin-top:16px;border:1px solid rgba(255,217,61,0.3);border-radius:10px;overflow:hidden">
+          <div style="padding:12px 16px;background:rgba(255,217,61,0.06);font-family:'Syne',sans-serif;font-weight:600;font-size:13px;cursor:pointer;user-select:none" onclick="toggleCalcConferencia()">
+            🧮 Conferência Linha a Linha <span id="calcConferenciaIcon">▼</span>
+          </div>
+          <div id="calcConferenciaBody" style="display:none;padding:16px">
+            <div style="font-size:12px;color:var(--muted);margin-bottom:14px">Digite cada entrada do extrato bancário — nome e valor — e o app compara com os pagamentos registrados.</div>
+
+            <div style="display:flex;gap:8px;margin-bottom:10px;align-items:flex-end;flex-wrap:wrap">
+              <div style="flex:2;min-width:120px">
+                <div style="font-size:11px;color:var(--muted);margin-bottom:4px">Nome (extrato)</div>
+                <input type="text" id="extNome" placeholder="Ex: Elder Duque" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:9px;font-size:13px;outline:none" onkeydown="if(event.key==='Enter')document.getElementById('extValor').focus()">
+              </div>
+              <div style="flex:1;min-width:80px">
+                <div style="font-size:11px;color:var(--muted);margin-bottom:4px">Valor (R$)</div>
+                <input type="number" id="extValor" placeholder="10,00" step="0.01" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:9px;font-size:13px;outline:none" onkeydown="if(event.key==='Enter')document.getElementById('extData').focus()">
+              </div>
+              <div style="flex:1;min-width:110px">
+                <div style="font-size:11px;color:var(--muted);margin-bottom:4px">Data</div>
+                <input type="date" id="extData" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:9px;font-size:13px;outline:none" onkeydown="if(event.key==='Enter')adicionarLinhaExtrato()">
+              </div>
+              <button onclick="adicionarLinhaExtrato()" style="background:var(--accent);color:#000;border:none;border-radius:8px;padding:9px 14px;font-weight:700;font-size:18px;cursor:pointer;flex-shrink:0">+</button>
+            </div>
+
+            <div id="conferenciaLinhasResultado">
+              <div style="color:var(--muted);font-size:13px;text-align:center;padding:16px">Adicione entradas do extrato acima</div>
+            </div>
+          </div>
+        </div>
       </div>
       <div id="bancoStatus" style="display:none;margin-top:12px;padding:10px 14px;border-radius:9px;font-size:13px"></div>
     </div>
@@ -995,21 +1078,503 @@ window.addEventListener('appinstalled', () => {
 <script>
 // ========== STATE ==========
 let membros = [
-  { id: 'M001', nome: 'Anna Lúcia',       contato: '31 8225-8674', mensalidade: 10, desde: '2025-01-01' },
-  { id: 'M002', nome: 'Calbe Maia',       contato: '31 8470-3842', mensalidade: 10, desde: '2025-01-01' },
-  { id: 'M003', nome: 'Douglas',          contato: '31 8256-1012', mensalidade: 10, desde: '2025-01-01' },
-  { id: 'M004', nome: 'Elder Duque',      contato: '31 9.93800471', mensalidade: 10, desde: '2025-01-01' },
-  { id: 'M005', nome: 'Jeniffer Limão',   contato: '31 8980-0898', mensalidade: 10, desde: '2025-01-01' },
-  { id: 'M006', nome: 'Karen Duque',      contato: '31 993800472', mensalidade: 10, desde: '2025-01-01' },
-  { id: 'M007', nome: 'Nicole',           contato: '31 9807-1171', mensalidade: 10, desde: '2025-01-01' },
-  { id: 'M008', nome: 'Rafael Camba',     contato: '31 7336-3378', mensalidade: 10, desde: '2025-01-01' },
-  { id: 'M009', nome: 'Rendimento mensal',contato: '—',            mensalidade: 0,  desde: '2025-01-01' },
-  { id: 'M010', nome: 'Victor',           contato: '31 8403-1534', mensalidade: 10, desde: '2025-01-01' },
+  {
+    "id": "1772496508255",
+    "nome": "Elder Duque",
+    "contato": "31 9.93800471 ",
+    "valor": "10.00",
+    "data": "2026-03-03",
+    "obs": ""
+  },
+  {
+    "id": "1772496548660",
+    "nome": "Karen Duque",
+    "contato": "31 993800472",
+    "valor": "10.00",
+    "data": "2026-03-03",
+    "obs": ""
+  },
+  {
+    "id": "1772498820602",
+    "nome": "Nicole",
+    "contato": "31 9807-1171",
+    "valor": "10.00",
+    "data": "2026-03-03",
+    "obs": ""
+  },
+  {
+    "id": "1772499511795",
+    "nome": "Jeniffer Limão",
+    "contato": "31 8980-0898",
+    "valor": "10.00",
+    "data": "2026-03-03",
+    "obs": ""
+  },
+  {
+    "id": "1772499636320",
+    "nome": "Douglas",
+    "contato": "31 8256-1012",
+    "valor": "10.00",
+    "data": "2026-03-03",
+    "obs": ""
+  },
+  {
+    "id": "1772500043483",
+    "nome": "Anna Lúcia",
+    "contato": "31 8225-8674",
+    "valor": "10.00",
+    "data": "2026-03-03",
+    "obs": ""
+  },
+  {
+    "id": "1772500088688",
+    "nome": "Rafael Camba",
+    "contato": "31 7336-3378",
+    "valor": "10.00",
+    "data": "2026-03-03",
+    "obs": ""
+  },
+  {
+    "id": "1772500122042",
+    "nome": "Calbe Maia",
+    "contato": "31 8470-3842",
+    "valor": "10.00",
+    "data": "2026-03-03",
+    "obs": ""
+  },
+  {
+    "id": "1772500152261",
+    "nome": "Victor",
+    "contato": "31 8403-1534",
+    "valor": "10.00",
+    "data": "2026-03-03",
+    "obs": ""
+  },
+  {
+    "id": "1772502570621",
+    "nome": "Rendimento mensal",
+    "contato": "",
+    "valor": "10",
+    "data": "2026-03-03",
+    "obs": ""
+  }
 ];
-let pagamentos = [];
+let pagamentos = [
+  {
+    "id": "1772529409453",
+    "membroId": "1772496508255",
+    "mes": 11,
+    "ano": 2025,
+    "valor": "10.00",
+    "status": "pago",
+    "data": "2025-12-05",
+    "obs": ""
+  },
+  {
+    "id": "1772529448924",
+    "membroId": "1772496508255",
+    "mes": 0,
+    "ano": 2026,
+    "valor": "10.00",
+    "status": "pago",
+    "data": "2026-03-03",
+    "obs": ""
+  },
+  {
+    "id": "1772535112189",
+    "membroId": "1772496548660",
+    "mes": 11,
+    "ano": 2025,
+    "valor": "10.00",
+    "status": "pago",
+    "data": "2026-03-03",
+    "obs": ""
+  },
+  {
+    "id": "1772535122895",
+    "membroId": "1772498820602",
+    "mes": 11,
+    "ano": 2025,
+    "valor": "10.00",
+    "status": "pago",
+    "data": "2025-12-04",
+    "obs": ""
+  },
+  {
+    "id": "1772535124182",
+    "membroId": "1772498820602",
+    "mes": 0,
+    "ano": 2026,
+    "valor": "10.00",
+    "status": "pago",
+    "data": "2026-03-03",
+    "obs": ""
+  },
+  {
+    "id": "1772535125557",
+    "membroId": "1772498820602",
+    "mes": 1,
+    "ano": 2026,
+    "valor": "10.00",
+    "status": "pago",
+    "data": "2026-02-24",
+    "obs": ""
+  },
+  {
+    "id": "1772535132996",
+    "membroId": "1772499511795",
+    "mes": 11,
+    "ano": 2025,
+    "valor": "10.00",
+    "status": "pago",
+    "data": "2025-12-01",
+    "obs": ""
+  },
+  {
+    "id": "1772535134152",
+    "membroId": "1772499511795",
+    "mes": 0,
+    "ano": 2026,
+    "valor": "10.00",
+    "status": "pago",
+    "data": "2026-03-03",
+    "obs": ""
+  },
+  {
+    "id": "1772535140006",
+    "membroId": "1772499511795",
+    "mes": 1,
+    "ano": 2026,
+    "valor": "10.00",
+    "status": "pago",
+    "data": "2026-03-03",
+    "obs": ""
+  },
+  {
+    "id": "1772535162560",
+    "membroId": "1772500043483",
+    "mes": 11,
+    "ano": 2025,
+    "valor": "10.00",
+    "status": "pago",
+    "data": "2025-12-04",
+    "obs": ""
+  },
+  {
+    "id": "1772535163902",
+    "membroId": "1772500043483",
+    "mes": 0,
+    "ano": 2026,
+    "valor": "10.00",
+    "status": "pago",
+    "data": "2026-03-03",
+    "obs": ""
+  },
+  {
+    "id": "1772535165000",
+    "membroId": "1772500043483",
+    "mes": 1,
+    "ano": 2026,
+    "valor": "10.00",
+    "status": "pago",
+    "data": "2026-03-03",
+    "obs": ""
+  },
+  {
+    "id": "1772535182780",
+    "membroId": "1772499636320",
+    "mes": 11,
+    "ano": 2025,
+    "valor": "10.00",
+    "status": "atrasado",
+    "data": "2026-03-03",
+    "obs": ""
+  },
+  {
+    "id": "1772535184707",
+    "membroId": "1772499636320",
+    "mes": 0,
+    "ano": 2026,
+    "valor": "10.00",
+    "status": "atrasado",
+    "data": "2026-03-03",
+    "obs": ""
+  },
+  {
+    "id": "1772535186649",
+    "membroId": "1772499636320",
+    "mes": 1,
+    "ano": 2026,
+    "valor": "10.00",
+    "status": "atrasado",
+    "data": "2026-03-03",
+    "obs": ""
+  },
+  {
+    "id": "1772535196602",
+    "membroId": "1772500088688",
+    "mes": 10,
+    "ano": 2025,
+    "valor": "10.00",
+    "status": "pago",
+    "data": "2026-03-03",
+    "obs": ""
+  },
+  {
+    "id": "1772535198050",
+    "membroId": "1772500088688",
+    "mes": 11,
+    "ano": 2025,
+    "valor": "10.00",
+    "status": "pago",
+    "data": "2026-03-03",
+    "obs": ""
+  },
+  {
+    "id": "1772535201090",
+    "membroId": "1772500088688",
+    "mes": 1,
+    "ano": 2026,
+    "valor": "10.00",
+    "status": "pago",
+    "data": "2026-03-03",
+    "obs": ""
+  },
+  {
+    "id": "1772535213378",
+    "membroId": "1772500122042",
+    "mes": 0,
+    "ano": 2026,
+    "valor": "10.00",
+    "status": "pago",
+    "data": "2026-03-03",
+    "obs": ""
+  },
+  {
+    "id": "1772535214764",
+    "membroId": "1772500122042",
+    "mes": 1,
+    "ano": 2026,
+    "valor": "10.00",
+    "status": "pago",
+    "data": "2026-02-23",
+    "obs": ""
+  },
+  {
+    "id": "1772535217631",
+    "membroId": "1772500122042",
+    "mes": 2,
+    "ano": 2026,
+    "valor": "20.00",
+    "status": "pendente",
+    "data": "2026-03-03",
+    "obs": ""
+  },
+  {
+    "id": "1772535227611",
+    "membroId": "1772500152261",
+    "mes": 11,
+    "ano": 2025,
+    "valor": "10.00",
+    "status": "atrasado",
+    "data": "2026-03-03",
+    "obs": ""
+  },
+  {
+    "id": "1772535231886",
+    "membroId": "1772500152261",
+    "mes": 0,
+    "ano": 2026,
+    "valor": "10.00",
+    "status": "atrasado",
+    "data": "2026-03-03",
+    "obs": ""
+  },
+  {
+    "id": "1772535234846",
+    "membroId": "1772500152261",
+    "mes": 1,
+    "ano": 2026,
+    "valor": "10.00",
+    "status": "atrasado",
+    "data": "2026-03-03",
+    "obs": ""
+  },
+  {
+    "id": "1772535243327",
+    "membroId": "1772500152261",
+    "mes": 2,
+    "ano": 2026,
+    "valor": "10.00",
+    "status": "pendente",
+    "data": "2026-03-03",
+    "obs": ""
+  },
+  {
+    "id": "1772550397805",
+    "membroId": "1772500122042",
+    "mes": 11,
+    "ano": 2025,
+    "valor": "10.00",
+    "status": "atrasado",
+    "data": "2026-03-03",
+    "obs": ""
+  },
+  {
+    "id": "1772550573835",
+    "membroId": "1772502570621",
+    "mes": 11,
+    "ano": 2025,
+    "valor": "0.27",
+    "status": "pago",
+    "data": "2025-12-31",
+    "obs": ""
+  },
+  {
+    "id": "1772552771849",
+    "membroId": "1772496548660",
+    "mes": 0,
+    "ano": 2026,
+    "valor": "0",
+    "status": "pago",
+    "data": "2026-01-13",
+    "obs": ""
+  },
+  {
+    "id": "1772552852992",
+    "membroId": "1772500088688",
+    "mes": 0,
+    "ano": 2026,
+    "valor": "0",
+    "status": "pago",
+    "data": "2026-01-13",
+    "obs": ""
+  },
+  {
+    "id": "1772552886776",
+    "membroId": "1772502570621",
+    "mes": 0,
+    "ano": 2026,
+    "valor": "0.33",
+    "status": "pago",
+    "data": "2026-01-05",
+    "obs": ""
+  },
+  {
+    "id": "1772552990382",
+    "membroId": "1772496508255",
+    "mes": 1,
+    "ano": 2026,
+    "valor": "20.00",
+    "status": "pago",
+    "data": "2026-02-18",
+    "obs": ""
+  },
+  {
+    "id": "1772553021865",
+    "membroId": "1772496548660",
+    "mes": 1,
+    "ano": 2026,
+    "valor": "20.00",
+    "status": "pago",
+    "data": "2026-02-18",
+    "obs": ""
+  },
+  {
+    "id": "1772553067478",
+    "membroId": "1772502570621",
+    "mes": 1,
+    "ano": 2026,
+    "valor": "1.09",
+    "status": "pago",
+    "data": "2026-02-13",
+    "obs": ""
+  },
+  {
+    "id": "1772739279878",
+    "membroId": "1772502570621",
+    "mes": 2,
+    "ano": 2026,
+    "valor": "20.62",
+    "status": "pago",
+    "data": "2026-03-05",
+    "obs": ""
+  },
+  {
+    "id": "1772828130175",
+    "membroId": "1772496548660",
+    "mes": 2,
+    "ano": 2026,
+    "valor": "10.00",
+    "status": "pago",
+    "data": "2026-03-06",
+    "obs": ""
+  },
+  {
+    "id": "1772832591188",
+    "membroId": "1772500088688",
+    "mes": 2,
+    "ano": 2026,
+    "valor": "10.00",
+    "status": "pago",
+    "data": "2026-03-06",
+    "obs": "Registrado via ação rápida"
+  },
+  {
+    "id": "1773136378609",
+    "membroId": "1772499511795",
+    "mes": 2,
+    "ano": 2026,
+    "valor": "10.00",
+    "status": "pago",
+    "data": "2026-03-10",
+    "obs": "Importado via extrato"
+  },
+  {
+    "id": "1773241921931",
+    "membroId": "1772500043483",
+    "mes": 2,
+    "ano": 2026,
+    "valor": "10.00",
+    "status": "pago",
+    "data": "2026-03-11",
+    "obs": ""
+  },
+  {
+    "id": "1773277118696",
+    "membroId": "1772499636320",
+    "mes": 2,
+    "ano": 2026,
+    "valor": "20.00",
+    "status": "pago",
+    "data": "2026-03-11",
+    "obs": ""
+  },
+  {
+    "id": "1773334104167",
+    "membroId": "1772498820602",
+    "mes": 2,
+    "ano": 2026,
+    "valor": "10.00",
+    "status": "pago",
+    "data": "2026-03-10",
+    "obs": "Registrado via ação rápida"
+  },
+  {
+    "id": "1773335289307",
+    "membroId": "1772496508255",
+    "mes": 2,
+    "ano": 2026,
+    "valor": "10.00",
+    "status": "pago",
+    "data": "2026-03-12",
+    "obs": ""
+  }
+];
 let gastos = [];
 let filtCaixa = 'todos';
 let saldoBanco = null;
+let _saldoBancoHistorico = [];
 let editingMembroId = null;
 let filterStatus = 'todos';
 let pgModoAgrupado = true;
@@ -1078,9 +1643,13 @@ function setCloudStatus(status) {
 
 async function carregarNuvem() {
   try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 7000);
     const res = await fetch(JSONBIN_URL + '/latest', {
-      headers: { 'X-Master-Key': JSONBIN_KEY }
+      headers: { 'X-Master-Key': JSONBIN_KEY },
+      signal: controller.signal
     });
+    clearTimeout(timeout);
     if (!res.ok) { setCloudStatus('error'); return false; }
     const json = await res.json();
     const d = json.record;
@@ -1117,11 +1686,42 @@ function init() {
   const savedAt = carregarLocal();
   renderAll();
   atualizarBotaoApi();
-  mostrarToast('Sincronizando com a nuvem...');
+
+  // Se não tem dados locais, restaura backup automaticamente
+  if (!savedAt && membros.length === 0) {
+    try {
+      _DADOS_BACKUP.savedAt = new Date().toISOString();
+      localStorage.setItem('jovens_ibc_dados', JSON.stringify(_DADOS_BACKUP));
+      membros = _DADOS_BACKUP.membros;
+      pagamentos = _DADOS_BACKUP.pagamentos;
+      gastos = _DADOS_BACKUP.gastos || [];
+      renderAll();
+      renderHome();
+      mostrarToast('✅ Backup restaurado automaticamente!');
+      const btnRec = document.getElementById('btnRecuperar');
+      if (btnRec) btnRec.style.display = 'none';
+    } catch(e) { console.warn('Erro ao restaurar backup:', e); }
+  }
+
+  // Carrega local imediatamente, depois tenta nuvem
+  if (savedAt || membros.length > 0) {
+    renderAll(); renderHome(); atualizarLabelData();
+    mostrarToast('Dados carregados. Sincronizando...');
+  } else {
+    mostrarToast('Sincronizando com a nuvem...');
+  }
+
+  // Tenta nuvem com timeout de 8 segundos
+  const timeoutNuvem = setTimeout(() => {
+    setCloudStatus('error');
+    mostrarToast('⚠️ Sem conexão com a nuvem. Usando dados locais.');
+  }, 8000);
+
   carregarNuvem().then(function(ok) {
-    if (ok) { renderAll(); renderHome(); atualizarLabelData(); mostrarToast('Dados sincronizados da nuvem!'); }
-    else if (!savedAt) { atualizarLabelData(); mostrarToast('Bem-vindo! Carregue seu Excel.'); }
-    else { renderAll(); renderHome(); atualizarLabelData(); mostrarToast('Dados locais carregados.'); }
+    clearTimeout(timeoutNuvem);
+    if (ok) { renderAll(); renderHome(); atualizarLabelData(); mostrarToast('✅ Dados sincronizados da nuvem!'); }
+    else if (membros.length === 0) { atualizarLabelData(); mostrarToast('⚠️ Sem nuvem. Carregue seu Excel se necessário.'); }
+    else { mostrarToast('⚠️ Nuvem indisponível. Dados locais ativos.'); }
     // Esconde stats bar pois começa na tela Início
     const statsBar = document.getElementById('statsBar');
     if (statsBar) statsBar.style.display = 'none';
@@ -1247,11 +1847,7 @@ function toggleAssiduidade() {
 // ========== RENDER ALL ==========
 function verificarAlertaBanco() {
   // Calcula saldo do app
-  const ch = new Set(); let totalEntradas = 0;
-  pagamentos.filter(p => p.status === 'pago').forEach(p => {
-    const k = p.membroId+'_'+p.mes+'_'+p.ano;
-    if (!ch.has(k)) { ch.add(k); totalEntradas += parseFloat(p.valor||0); }
-  });
+  let totalEntradas = pagamentos.filter(p => p.status === 'pago').reduce((s,p) => s + parseFloat(p.valor||0), 0);
   const totalGastos = gastos.reduce((s,g) => s + parseFloat(g.valor||0), 0);
   const saldoApp = totalEntradas - totalGastos;
 
@@ -2057,7 +2653,7 @@ function gerarExtrato() {
   const rodape = [
     ``,
     `▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬`,
-    `🙏 Muito obrigado pelas contribuições! Juntos fazemos a diferença no Grupo de Jovens IBC.`,
+    `🙏 Muito obrigado pelas contribuições! Somente assim nosso Ministério se tornará mais forte.`,
     ``,
     `📖 _"Cada um contribua conforme propôs no seu coração; não com tristeza, ou por necessidade; porque Deus ama ao que dá com alegria."_`,
     `— 2 Coríntios 9:7`,
@@ -2068,7 +2664,7 @@ function gerarExtrato() {
 
   if (_extTipo === 'simples') {
     linhas = [
-      `⚡ *EXTRATO SIMPLIFICADO — JOVENS IBC — ${MESES[mes].toUpperCase()} ${ano}*`,
+      `⚡ *EXTRATO SIMPLIFICADO — ${MESES[mes].toUpperCase()} ${ano}*`,
       `▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬`,
       ``,
       `🏦 *Banco:* Nubank`,
@@ -2088,7 +2684,7 @@ function gerarExtrato() {
     ];
   } else {
     linhas = [
-      `📊 *EXTRATO — JOVENS IBC — ${MESES[mes].toUpperCase()} ${ano}*`,
+      `📊 *EXTRATO — ${MESES[mes].toUpperCase()} ${ano}*`,
       `- - - - - - - - - - -`,
       ``,
       `🏦 *Banco:* Nubank`,
@@ -2236,7 +2832,7 @@ function copiarExtratoMes(mes, ano) {
   const totalAcum = (() => { const ch = new Set(); let s = 0; pagamentos.filter(p => p.status === 'pago').forEach(p => { const k = p.membroId+'_'+p.mes+'_'+p.ano; if (!ch.has(k)) { ch.add(k); s += parseFloat(p.valor||0); } }); return s; })();
   const totalGast = gastos.reduce((s,g) => s + parseFloat(g.valor||0), 0);
   const linhas = [
-    `📊 *EXTRATO — JOVENS IBC — ${MESES[mes].toUpperCase()} ${ano}*`,
+    `📊 *EXTRATO — ${MESES[mes].toUpperCase()} ${ano}*`,
     `- - - - - - - - - - -`,
     `🏦 *Banco:* Nubank`,
     `💳 *Chave PIX:* ibcjovensnl@gmail.com`,
@@ -2261,7 +2857,7 @@ function copiarExtratoMes(mes, ano) {
     `  Saldo disponível:  R$ ${(totalAcum - totalGast).toFixed(2).replace('.',',')}`,
     ``,
     `▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬`,
-    `🙏 Muito obrigado pelas contribuições! Juntos fazemos a diferença no Grupo de Jovens IBC.`,
+    `🙏 Muito obrigado pelas contribuições! Somente assim nosso Ministério se tornará mais forte.`,
     ``,
     `📖 _"Cada um contribua conforme propôs no seu coração; não com tristeza, ou por necessidade; porque Deus ama ao que dá com alegria."_`,
     `— 2 Coríntios 9:7`,
@@ -2288,7 +2884,7 @@ function compartilharExtrato() {
     const qtd = parseInt(document.getElementById('extHistoricoQtd') ? document.getElementById('extHistoricoQtd').value : 6);
     const hoje = new Date();
     const MESES_PT = ["Janeiro","Fevereiro","Marco","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
-    const linhas = ['HISTORICO DE PAGAMENTOS - JOVENS IBC', '- - - - - - - - - - -', ''];
+    const linhas = ['HISTORICO DE PAGAMENTOS - M de Midia', '- - - - - - - - - - -', ''];
     for (let i = qtd - 1; i >= 0; i--) {
       const d = new Date(hoje.getFullYear(), hoje.getMonth() - i, 1);
       const mes = d.getMonth(), ano = d.getFullYear();
@@ -2322,7 +2918,7 @@ function compartilharExtrato() {
   if (!txt || !txt.trim()) { alert('Nenhum dado para compartilhar.'); return; }
 
   if (navigator.share) {
-    navigator.share({ text: txt, title: 'Extrato Jovens IBC' })
+    navigator.share({ text: txt, title: 'Extrato M de Midia' })
       .catch(function(err) { if (err.name !== 'AbortError') copiarTextoFallback(txt); });
     return;
   }
@@ -2491,16 +3087,8 @@ function renderCaixa() {
   const el = document.getElementById('tabelaCaixa');
   if (!el) return;
 
-  // Total entradas: soma de todos os pagamentos pagos (um por membro por mês)
-  const totalEntradas = (() => {
-    const chaves = new Set();
-    let soma = 0;
-    pagamentos.filter(p => p.status === 'pago').forEach(p => {
-      const k = p.membroId + '_' + p.mes + '_' + p.ano;
-      if (!chaves.has(k)) { chaves.add(k); soma += parseFloat(p.valor || 0); }
-    });
-    return soma;
-  })();
+  // Total entradas: soma de todos os pagamentos pagos
+  const totalEntradas = pagamentos.filter(p => p.status === 'pago').reduce((s,p) => s + parseFloat(p.valor||0), 0);
 
   const totalSaidas = gastos.reduce((s, g) => s + parseFloat(g.valor || 0), 0);
   const saldo = totalEntradas - totalSaidas;
@@ -2712,7 +3300,7 @@ function mostrarPdfStatus(msg, tipo) {
   const el = document.getElementById('pdfStatus');
   el.style.display = 'block';
   const cores = {
-    loading: 'background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.25);color:#7dd3fc',
+    loading: 'background:rgba(0,180,255,0.1);border:1px solid rgba(0,180,255,0.25);color:#7dd3fc',
     ok:      'background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.25);color:var(--accent)',
     erro:    'background:rgba(255,107,107,0.1);border:1px solid rgba(255,107,107,0.25);color:var(--accent2)'
   };
@@ -2759,7 +3347,7 @@ function mostrarBancoStatus(msg, tipo) {
   if (!el) return;
   el.style.display = 'block';
   const cores = {
-    loading: 'background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.25);color:#7dd3fc',
+    loading: 'background:rgba(0,180,255,0.1);border:1px solid rgba(0,180,255,0.25);color:#7dd3fc',
     ok:      'background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.25);color:var(--accent)',
     erro:    'background:rgba(255,107,107,0.1);border:1px solid rgba(255,107,107,0.25);color:var(--accent2)'
   };
@@ -2803,44 +3391,87 @@ function atualizarPainelBanco(saldoApp) {
   const diagEl = document.getElementById('bancoDiagnostico');
   if (!diagEl) return;
 
-  // Agrupa pagamentos por mês/ano
+  // Agrupa todos os pagamentos por mês/ano com detalhes por pessoa
   const porMes = {};
   pagamentos.filter(p => p.status === 'pago').forEach(p => {
     const k = p.ano + '_' + String(p.mes).padStart(2,'0');
     const label = ["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"][p.mes] + '/' + p.ano;
-    if (!porMes[k]) porMes[k] = { label, total: 0, qtd: 0 };
-    const key2 = p.membroId + '_' + p.mes + '_' + p.ano;
-    // avoid double count
-    if (!porMes[k]['_ids']) porMes[k]['_ids'] = new Set();
-    if (!porMes[k]['_ids'].has(key2)) {
-      porMes[k]['_ids'].add(key2);
-      porMes[k].total += parseFloat(p.valor || 0);
-      porMes[k].qtd++;
-    }
+    if (!porMes[k]) porMes[k] = { label, total: 0, qtd: 0, itens: [] };
+    porMes[k].total += parseFloat(p.valor || 0);
+    porMes[k].qtd++;
+    const m = membros.find(x => x.id === p.membroId);
+    porMes[k].itens.push({ nome: m ? m.nome : '(removido)', valor: parseFloat(p.valor||0), data: p.data||'' });
   });
 
   const totalEntradas = Object.values(porMes).reduce((s, m) => s + m.total, 0);
   const totalSaidas = gastos.reduce((s, g) => s + parseFloat(g.valor || 0), 0);
 
+  // Detectar possíveis problemas
+  const problemas = [];
+
+  // 1. Pagamentos sem data
+  const semData = pagamentos.filter(p => p.status === 'pago' && !p.data);
+  if (semData.length) {
+    problemas.push(`⚠️ <strong>${semData.length} pagamento(s) sem data</strong> — podem dificultar a conferência com o extrato bancário.`);
+  }
+
+  // 2. Múltiplos pagamentos mesmo membro mesmo mês (possível duplicata)
+  const contagem = {};
+  pagamentos.filter(p => p.status === 'pago').forEach(p => {
+    const k = p.membroId + '_' + p.mes + '_' + p.ano;
+    contagem[k] = (contagem[k] || 0) + 1;
+  });
+  Object.entries(contagem).filter(([,v]) => v > 1).forEach(([k]) => {
+    const [mid, mes, ano] = k.split('_');
+    const m = membros.find(x => x.id === mid);
+    const nomeMes = ["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"][parseInt(mes)];
+    problemas.push(`🔄 <strong>${m ? m.nome : 'Membro'}</strong> tem múltiplos lançamentos em <strong>${nomeMes}/${ano}</strong> — verifique se não há duplicata.`);
+  });
+
+  // 3. Sugestão baseada na diferença
+  if (absDiff >= 0.01) {
+    if (diff > 0) {
+      problemas.push(`💡 Banco tem <strong>R$ ${absDiff.toFixed(2).replace('.',',')} a mais</strong> — possível: depósito ou rendimento não registrado no app.`);
+    } else {
+      problemas.push(`💡 App tem <strong>R$ ${absDiff.toFixed(2).replace('.',',')} a mais</strong> — possível: pagamento registrado mas não recebido no banco, ou gasto não registrado.`);
+    }
+  }
+
+  const problemasHtml = problemas.length
+    ? `<div style="margin-bottom:16px">
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:#ffd93d;margin-bottom:8px">🔍 Possíveis Problemas Detectados</div>
+        ${problemas.map(p => `<div style="padding:8px 12px;border-radius:8px;background:rgba(255,217,61,0.08);border:1px solid rgba(255,217,61,0.25);font-size:12px;color:var(--text);margin-bottom:6px">${p}</div>`).join('')}
+      </div>`
+    : `<div style="padding:8px 12px;border-radius:8px;background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.2);font-size:12px;color:var(--accent);margin-bottom:16px">✅ Nenhum problema detectado automaticamente.</div>`;
+
+  // Entradas por mês expansíveis com detalhe por pessoa
   const linhasMes = Object.keys(porMes).sort().reverse().map(k => {
     const m = porMes[k];
-    return '<div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border)">' +
-      '<span style="font-size:13px;color:var(--muted)">' + m.label + ' <span style="font-size:11px">(' + m.qtd + ' pag.)</span></span>' +
-      '<span style=\"font-family:Syne,sans-serif;font-weight:700;color:var(--accent)\">+ R$ ' + m.total.toFixed(2).replace('.',',') + '</span>' +
-    '</div>';
+    const detalhes = m.itens.map(i =>
+      `<div style="display:flex;justify-content:space-between;padding:4px 0 4px 16px;border-bottom:1px solid var(--border)">` +
+      `<span style="font-size:12px;color:var(--muted)">↳ ${i.nome}${i.data ? ' — ' + i.data.split('-').reverse().join('/') : ' — <em style=color:var(--accent3)>sem data</em>'}</span>` +
+      `<span style="font-size:12px;font-weight:700;color:var(--accent)">R$ ${i.valor.toFixed(2).replace('.',',')}</span>` +
+      `</div>`
+    ).join('');
+    return `<details style="margin-bottom:4px">` +
+      `<summary style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border);cursor:pointer;list-style:none;user-select:none">` +
+      `<span style="font-size:13px;color:var(--muted)">${m.label} <span style="font-size:11px">(${m.qtd} lançamento${m.qtd>1?'s':''})</span></span>` +
+      `<span style="font-family:'Syne',sans-serif;font-weight:700;color:var(--accent)">+ R$ ${m.total.toFixed(2).replace('.',',')} ▼</span>` +
+      `</summary>${detalhes}</details>`;
   }).join('');
 
   const linhasGasto = gastos.length ? gastos.map(g => {
     const dataFmt = g.data ? g.data.split('-').reverse().join('/') : '—';
-    return '<div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border)">' +
-      '<span style="font-size:13px;color:var(--muted)">' + dataFmt + ' — ' + g.desc + '</span>' +
-      '<span style=\"font-family:Syne,sans-serif;font-weight:700;color:var(--accent2)\">- R$ ' + parseFloat(g.valor).toFixed(2).replace('.',',') + '</span>' +
-    '</div>';
+    return `<div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border)">` +
+      `<span style="font-size:13px;color:var(--muted)">${dataFmt} — ${g.desc}</span>` +
+      `<span style="font-family:'Syne',sans-serif;font-weight:700;color:var(--accent2)">- R$ ${parseFloat(g.valor).toFixed(2).replace('.',',')}</span>` +
+      `</div>`;
   }).join('') : '<div style="font-size:13px;color:var(--muted);padding:8px 0">Nenhum gasto registrado</div>';
 
   diagEl.innerHTML =
+    problemasHtml +
     '<div style="margin-bottom:16px">' +
-      '<div style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:8px">✅ Entradas por mês</div>' +
+      '<div style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:8px">✅ Entradas por mês <span style="font-size:10px;color:var(--accent)">(toque para ver detalhes)</span></div>' +
       linhasMes +
       '<div style="display:flex;justify-content:space-between;padding:10px 0 4px;font-weight:700">' +
         '<span style="font-size:13px">Subtotal entradas</span>' +
@@ -2858,11 +3489,224 @@ function atualizarPainelBanco(saldoApp) {
     '<div style="display:flex;justify-content:space-between;padding:12px 0;border-top:2px solid var(--border);font-weight:700">' +
       '<span>Saldo calculado pelo app</span>' +
       '<span style="color:' + (saldoApp >= 0 ? 'var(--accent)' : 'var(--accent2)') + ';font-size:16px">R$ ' + saldoApp.toFixed(2).replace('.',',') + '</span>' +
-    '</div>' +
-    (absDiff >= 0.01 ? '<div style="padding:12px;border-radius:9px;background:rgba(255,217,61,0.1);border:1px solid rgba(255,217,61,0.25);font-size:12px;color:var(--accent3);margin-top:8px">' +
-      '⚠️ <strong>Divergência de R$ ' + absDiff.toFixed(2).replace('.',',') + '</strong> — ' +
-      (diff > 0 ? 'O banco tem mais. Possível causa: depósito no banco não registrado no app.' : 'O app tem mais. Verifique se algum pagamento foi registrado em duplicata.') +
-    '</div>' : '');
+    '</div>';
+}
+
+function toggleCalcConferencia() {
+  const body = document.getElementById('calcConferenciaBody');
+  const icon = document.getElementById('calcConferenciaIcon');
+  const aberto = body.style.display !== 'none';
+  body.style.display = aberto ? 'none' : 'block';
+  icon.textContent = aberto ? '▼' : '▲';
+  if (!aberto) calcConferencia();
+}
+
+function calcConferencia() {
+  const el = document.getElementById('calcResultado');
+
+  const parseValores = (txt) => txt.split('\n')
+    .map(l => l.trim().replace(',','.'))
+    .map(l => parseFloat(l))
+    .filter(v => !isNaN(v) && v > 0);
+
+  const saldoInicial = parseFloat((document.getElementById('calcSaldoInicial').value || '0').replace(',','.')) || 0;
+  const entradas = parseValores(document.getElementById('calcEntradas').value || '');
+  const saidas   = parseValores(document.getElementById('calcSaidas').value || '');
+
+  const totalEntradas = entradas.reduce((s,v) => s+v, 0);
+  const totalSaidas   = saidas.reduce((s,v) => s+v, 0);
+  const saldoFinalExtrato = saldoInicial + totalEntradas - totalSaidas;
+
+  // Dados do app
+  const totalAppEntradas = pagamentos.filter(p=>p.status==='pago').reduce((s,p)=>s+parseFloat(p.valor||0),0);
+  const totalAppSaidas   = gastos.reduce((s,g)=>s+parseFloat(g.valor||0),0);
+  const saldoApp = totalAppEntradas - totalAppSaidas;
+
+  const diff = saldoFinalExtrato - saldoApp;
+  const absDiff = Math.abs(diff);
+  const cor = absDiff < 0.02 ? 'var(--accent)' : '#ffd93d';
+
+  el.innerHTML = `
+    <div style="background:var(--surface2);border-radius:10px;padding:14px;margin-bottom:12px">
+      <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">📊 Extrato Bancário</div>
+      <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border);font-size:13px">
+        <span style="color:var(--muted)">Saldo inicial</span>
+        <span>R$ ${saldoInicial.toFixed(2).replace('.',',')}</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border);font-size:13px">
+        <span style="color:var(--muted)">+ Entradas (${entradas.length}x)</span>
+        <span style="color:var(--accent)">R$ ${totalEntradas.toFixed(2).replace('.',',')}</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border);font-size:13px">
+        <span style="color:var(--muted)">− Saídas (${saidas.length}x)</span>
+        <span style="color:var(--accent2)">R$ ${totalSaidas.toFixed(2).replace('.',',')}</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:8px 0 0;font-size:15px;font-weight:700">
+        <span>Saldo final extrato</span>
+        <span>R$ ${saldoFinalExtrato.toFixed(2).replace('.',',')}</span>
+      </div>
+    </div>
+
+    <div style="background:var(--surface2);border-radius:10px;padding:14px;margin-bottom:12px">
+      <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">📱 App M de Mídia</div>
+      <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border);font-size:13px">
+        <span style="color:var(--muted)">+ Entradas registradas</span>
+        <span style="color:var(--accent)">R$ ${totalAppEntradas.toFixed(2).replace('.',',')}</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border);font-size:13px">
+        <span style="color:var(--muted)">− Gastos registrados</span>
+        <span style="color:var(--accent2)">R$ ${totalAppSaidas.toFixed(2).replace('.',',')}</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:8px 0 0;font-size:15px;font-weight:700">
+        <span>Saldo calculado app</span>
+        <span style="color:var(--accent)">R$ ${saldoApp.toFixed(2).replace('.',',')}</span>
+      </div>
+    </div>
+
+    <div style="padding:14px;border-radius:10px;background:rgba(255,217,61,0.06);border:1px solid ${cor};text-align:center">
+      <div style="font-size:12px;color:var(--muted);margin-bottom:4px">Diferença</div>
+      <div style="font-size:24px;font-weight:700;color:${cor}">
+        ${absDiff < 0.02 ? '✅ R$ 0,00' : (diff > 0 ? '+' : '-') + ' R$ ' + absDiff.toFixed(2).replace('.',',')}
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-top:6px">
+        ${absDiff < 0.02 ? 'Tudo confere!' : diff > 0 ? 'Extrato tem R$ ' + absDiff.toFixed(2).replace('.',',') + ' a mais que o app' : 'App tem R$ ' + absDiff.toFixed(2).replace('.',',') + ' a mais que o extrato'}
+      </div>
+    </div>`;
+}
+
+// ===== CONFERÊNCIA LINHA A LINHA =====
+let _linhasExtrato = [];
+
+function adicionarLinhaExtrato() {
+  const nome = document.getElementById('extNome').value.trim();
+  const valStr = document.getElementById('extValor').value.trim().replace(',','.');
+  const val = parseFloat(valStr);
+  const data = document.getElementById('extData').value;
+  if (!nome || isNaN(val) || val <= 0) { mostrarToast('Preencha nome e valor.'); return; }
+  _linhasExtrato.push({ nome, valor: val, data });
+  document.getElementById('extNome').value = '';
+  document.getElementById('extValor').value = '';
+  document.getElementById('extData').value = '';
+  document.getElementById('extNome').focus();
+  renderConferenciaLinhas();
+}
+
+function removerLinhaExtrato(i) {
+  _linhasExtrato.splice(i, 1);
+  renderConferenciaLinhas();
+}
+
+function renderConferenciaLinhas() {
+  const el = document.getElementById('conferenciaLinhasResultado');
+  if (_linhasExtrato.length === 0) {
+    el.innerHTML = '<div style="color:var(--muted);font-size:13px;text-align:center;padding:16px">Adicione entradas do extrato acima</div>';
+    return;
+  }
+
+  // Pagamentos do app como pago
+  const pgApp = pagamentos.filter(p => p.status === 'pago').map(p => {
+    const m = membros.find(x => x.id === p.membroId);
+    return { nome: m ? m.nome : '?', valor: parseFloat(p.valor||0), id: p.id, usado: false };
+  });
+
+  let totalExtrato = 0;
+  let totalApp = pgApp.reduce((s,p) => s+p.valor, 0);
+  let html = '';
+  let temErro = false;
+
+  // Para cada linha do extrato, tenta encontrar match no app
+  const pgAppCopia = pgApp.map(p => ({ ...p }));
+
+  _linhasExtrato.forEach((linha, i) => {
+    totalExtrato += linha.valor;
+    const nomeMin = linha.nome.toLowerCase();
+
+    // Busca por nome (parcial) E valor
+    let match = pgAppCopia.find(p =>
+      !p.usado &&
+      Math.abs(p.valor - linha.valor) < 0.02 &&
+      (p.nome.toLowerCase().includes(nomeMin.split(' ')[0]) || nomeMin.includes(p.nome.toLowerCase().split(' ')[0]))
+    );
+
+    // Se não achou por nome+valor, tenta só por valor
+    if (!match) {
+      match = pgAppCopia.find(p => !p.usado && Math.abs(p.valor - linha.valor) < 0.02);
+    }
+
+    let status, cor, detalhe;
+    if (match) {
+      match.usado = true;
+      const nomeApp = match.nome;
+      const nomesBatem = nomeApp.toLowerCase().includes(nomeMin.split(' ')[0]) || nomeMin.includes(nomeApp.toLowerCase().split(' ')[0]);
+      if (nomesBatem) {
+        status = '✅'; cor = 'rgba(139,92,246,0.08)'; detalhe = match.nome;
+      } else {
+        status = '⚠️'; cor = 'rgba(255,217,61,0.08)'; detalhe = 'Valor bate mas nome diferente: ' + match.nome; temErro = true;
+      }
+    } else {
+      status = '❌'; cor = 'rgba(255,107,107,0.08)'; detalhe = 'Não encontrado no app!'; temErro = true;
+    }
+
+    html += `<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:${cor};border-radius:8px;margin-bottom:6px">
+      <div style="font-size:18px">${status}</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:13px;font-weight:700">${linha.nome}</div>
+        <div style="font-size:11px;color:var(--muted)">${linha.data ? linha.data.split('-').reverse().join('/') + ' · ' : ''}${detalhe}</div>
+      </div>
+      <div style="text-align:right;flex-shrink:0">
+        <div style="font-size:13px;font-weight:700;color:var(--accent)">R$ ${linha.valor.toFixed(2).replace('.',',')}</div>
+        <div onclick="removerLinhaExtrato(${i})" style="font-size:11px;color:#ff6b6b;cursor:pointer">remover</div>
+      </div>
+    </div>`;
+  });
+
+  // Pagamentos no app que não foram encontrados no extrato
+  const naoUsados = pgAppCopia.filter(p => !p.usado && p.nome !== 'Rendimento mensal');
+  if (naoUsados.length) {
+    temErro = true;
+    html += `<div style="font-size:11px;color:#ff6b6b;text-transform:uppercase;letter-spacing:1px;margin:12px 0 8px">❌ No app mas não no extrato</div>`;
+    naoUsados.forEach(p => {
+      html += `<div style="display:flex;justify-content:space-between;padding:8px 12px;background:rgba(255,107,107,0.06);border-radius:8px;margin-bottom:6px">
+        <span style="font-size:13px">${p.nome}</span>
+        <span style="font-size:13px;font-weight:700;color:#ff6b6b">R$ ${p.valor.toFixed(2).replace('.',',')}</span>
+      </div>`;
+    });
+  }
+
+  const diff = totalExtrato - totalApp;
+  const absDiff = Math.abs(diff);
+
+  html += `<div style="margin-top:14px;padding:14px;border-radius:10px;background:var(--surface2);border:1px solid ${absDiff<0.02?'var(--accent)':'#ffd93d'}">
+    <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px">
+      <span style="color:var(--muted)">Total extrato</span>
+      <strong>R$ ${totalExtrato.toFixed(2).replace('.',',')}</strong>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:10px">
+      <span style="color:var(--muted)">Total app</span>
+      <strong style="color:var(--accent)">R$ ${totalApp.toFixed(2).replace('.',',')}</strong>
+    </div>
+    <div style="text-align:center;font-size:20px;font-weight:700;color:${absDiff<0.02?'var(--accent)':'#ffd93d'}">
+      ${absDiff < 0.02 ? '✅ Tudo confere!' : (diff>0?'Extrato tem':'App tem') + ' R$ ' + absDiff.toFixed(2).replace('.',',') + ' a mais'}
+    </div>
+  </div>`;
+
+  el.innerHTML = html;
+}
+
+function reverterSaldoBanco() {
+  if (_saldoBancoHistorico.length === 0) {
+    mostrarToast('⚠️ Nenhuma alteração para desfazer.');
+    return;
+  }
+  const anterior = _saldoBancoHistorico.pop();
+  saldoBanco = { valor: anterior.valor, data: anterior.data };
+  const inp = document.getElementById('bancoSaldoInput');
+  if (inp) inp.value = anterior.valor;
+  save();
+  const saldoApp = pagamentos.filter(p=>p.status==='pago').reduce((s,p)=>s+parseFloat(p.valor||0),0)
+    - gastos.reduce((s,g)=>s+parseFloat(g.valor||0),0);
+  atualizarPainelBanco(saldoApp);
+  mostrarToast('↩️ Saldo revertido para R$ ' + parseFloat(anterior.valor).toFixed(2).replace('.',','));
 }
 
 function setModoSaldo(modo) {
@@ -2902,6 +3746,13 @@ function definirSaldoBancoManual() {
   if (modo === 'somar' && saldoBanco !== null) {
     novoValor = parseFloat(saldoBanco.valor || 0) + val;
   }
+
+  // Salva histórico antes de alterar
+  if (saldoBanco !== null) {
+    _saldoBancoHistorico.push({ valor: saldoBanco.valor, data: saldoBanco.data });
+    if (_saldoBancoHistorico.length > 10) _saldoBancoHistorico.shift();
+  }
+
   saldoBanco = { valor: novoValor, data: dataFmt };
   save();
 
@@ -2921,6 +3772,185 @@ function definirSaldoBancoManual() {
     bancoStatus.style.cssText = 'display:block;padding:10px 14px;border-radius:9px;font-size:13px;margin-top:12px;background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.25);color:var(--accent)';
     bancoStatus.innerHTML = '✅ Saldo bancário definido: <strong>R$ ' + val.toFixed(2).replace('.',',') + '</strong> em ' + dataFmt;
   }
+}
+
+// ===== PDF BANCO - CONFERIR (sem API) =====
+async function lerPdfBancoConferir(input) {
+  const file = input.files[0];
+  if (!file) return;
+  input.value = '';
+
+  const statusEl = document.getElementById('pdfConferirStatus');
+  const resultEl = document.getElementById('pdfConferirResultado');
+  const areaEl  = document.getElementById('pdfBancoTextoArea');
+  const dataEl  = document.getElementById('pdfConferirData');
+
+  statusEl.style.display = 'block';
+  statusEl.style.background = 'rgba(139,92,246,0.08)';
+  statusEl.style.color = 'var(--accent)';
+  statusEl.textContent = '⏳ Lendo PDF...';
+  resultEl.style.display = 'none';
+
+  try {
+    const arrayBuffer = await file.arrayBuffer();
+    const bytes = new Uint8Array(arrayBuffer);
+    const raw = new TextDecoder('latin1').decode(bytes);
+
+    // Extrai strings legíveis entre parênteses (formato PDF interno)
+    let textoCompleto = '';
+    const matches = raw.match(/\(([^\)]{1,120})\)/g) || [];
+    textoCompleto = matches
+      .map(m => m.slice(1,-1).replace(/\\n/g,' ').replace(/\\/g,''))
+      .filter(s => /[a-zA-Z0-9áéíóúàãõâêôçR$,.]/.test(s) && s.trim().length > 1)
+      .join(' ');
+
+    // Fallback: extrai texto direto se PDF não usa parênteses
+    if (textoCompleto.length < 50) {
+      const decoder = new TextDecoder('utf-8', { fatal: false });
+      const txt = decoder.decode(bytes);
+      const parts = txt.match(/[A-Za-z0-9áéíóúàãõâêôçÁÉÍÓÚR$.,\/\-\s]{4,}/g) || [];
+      textoCompleto = parts.join(' ');
+    }
+
+    areaEl.value = textoCompleto.trim() || 'Não foi possível extrair texto deste PDF.';
+    dataEl.value = new Date().toISOString().split('T')[0];
+
+    // Tenta detectar saldo - formatos Nubank e outros
+    const saldoMatch = 
+      textoCompleto.match(/valor do per[ií]odo[^R\d]*R?\$?\s*([\d.,]+)/i) ||
+      textoCompleto.match(/per[ií]odo[^R\d]*R?\$?\s*([\d.,]+)/i) ||
+      textoCompleto.match(/saldo[^R\d]*R?\$?\s*([\d.,]+)/i) ||
+      textoCompleto.match(/total[^R\d]*R?\$?\s*([\d.,]+)/i) ||
+      textoCompleto.match(/R\$\s*([\d]{1,3}(?:[.,]\d{3})*[.,]\d{2})/i);
+    if (saldoMatch) {
+      const val = parseFloat(saldoMatch[1].replace(/\./g,'').replace(',','.'));
+      if (!isNaN(val) && val > 0) {
+        document.getElementById('pdfConferirSaldo').value = val.toFixed(2);
+        statusEl.textContent = '✅ Saldo detectado: R$ ' + val.toFixed(2).replace('.',',') + ' — confirme ou edite abaixo.';
+      } else {
+        statusEl.textContent = '⚠️ PDF lido mas saldo não detectado. Digite manualmente abaixo.';
+        statusEl.style.color = '#ffd93d';
+      }
+    } else {
+      statusEl.textContent = '⚠️ PDF lido mas saldo não detectado. Digite manualmente abaixo.';
+      statusEl.style.color = '#ffd93d';
+    }
+
+    resultEl.style.display = 'block';
+
+  } catch(e) {
+    statusEl.style.background = 'rgba(255,107,107,0.08)';
+    statusEl.style.color = '#ff6b6b';
+    statusEl.textContent = '❌ Erro ao ler PDF: ' + e.message;
+  }
+}
+
+function renderConferirComparacao(textoPdf) {
+  const el = document.getElementById('pdfConferirComparacao');
+  const texto = textoPdf.toLowerCase();
+
+  // Pagamentos registrados no app como pagos
+  const pgPagos = pagamentos.filter(p => p.status === 'pago');
+
+  // Para cada pagamento, verifica se o nome do membro aparece no PDF
+  let encontrados = [], naoEncontrados = [];
+
+  pgPagos.forEach(p => {
+    const m = membros.find(x => x.id === p.membroId);
+    if (!m || m.nome === 'Rendimento mensal') return;
+    const nomePartes = m.nome.toLowerCase().split(' ');
+    const nomePrincipal = nomePartes[0]; // primeiro nome
+    const sobrenome = nomePartes[nomePartes.length - 1];
+    const achou = texto.includes(nomePrincipal) || (sobrenome.length > 3 && texto.includes(sobrenome));
+    const mesNome = MESES[p.mes] || '';
+    const info = { nome: m.nome, mes: mesNome, ano: p.ano, valor: p.valor, data: p.data, achou };
+    if (achou) encontrados.push(info);
+    else naoEncontrados.push(info);
+  });
+
+  // Tenta encontrar valores no PDF que não batem com nenhum membro
+  const valoresPdf = [];
+  const valMatches = textoPdf.match(/R?\$?\s*(\d{1,3}(?:[.,]\d{3})*[.,]\d{2}|\d+[.,]\d{2})/g) || [];
+  valMatches.forEach(v => {
+    const num = parseFloat(v.replace(/[R$\s]/g,'').replace(/\./g,'').replace(',','.'));
+    if (!isNaN(num) && num > 0 && num < 10000) valoresPdf.push(num);
+  });
+
+  // Soma dos pagamentos no app
+  const totalApp = pgPagos.reduce((s,p) => s + parseFloat(p.valor||0), 0);
+
+  let html = '';
+
+  // Resumo
+  html += `<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+    <div style="background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.2);border-radius:10px;padding:12px;text-align:center">
+      <div style="font-size:22px;font-weight:700;color:var(--accent)">${encontrados.length}</div>
+      <div style="font-size:11px;color:var(--muted)">✅ Encontrados no PDF</div>
+    </div>
+    <div style="background:rgba(255,107,107,0.08);border:1px solid rgba(255,107,107,0.2);border-radius:10px;padding:12px;text-align:center">
+      <div style="font-size:22px;font-weight:700;color:#ff6b6b">${naoEncontrados.length}</div>
+      <div style="font-size:11px;color:var(--muted)">⚠️ Não achados no PDF</div>
+    </div>
+  </div>`;
+
+  // Não encontrados (mais importante — possível erro)
+  if (naoEncontrados.length) {
+    html += `<div style="margin-bottom:16px">
+      <div style="font-size:12px;font-weight:700;color:#ff6b6b;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px">⚠️ Registrados no app mas não achados no PDF</div>`;
+    naoEncontrados.forEach(p => {
+      html += `<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:rgba(255,107,107,0.06);border:1px solid rgba(255,107,107,0.15);border-radius:8px;margin-bottom:6px">
+        <div>
+          <div style="font-size:13px;font-weight:700">${p.nome}</div>
+          <div style="font-size:11px;color:var(--muted)">${p.mes}/${p.ano}${p.data ? ' · ' + p.data.split('-').reverse().join('/') : ''}</div>
+        </div>
+        <div style="font-size:13px;font-weight:700;color:#ff6b6b">R$ ${parseFloat(p.valor||0).toFixed(2).replace('.',',')}</div>
+      </div>`;
+    });
+    html += '</div>';
+  }
+
+  // Encontrados
+  if (encontrados.length) {
+    html += `<div style="margin-bottom:16px">
+      <div style="font-size:12px;font-weight:700;color:var(--accent);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px">✅ Confirmados no PDF</div>`;
+    encontrados.forEach(p => {
+      html += `<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:rgba(139,92,246,0.05);border:1px solid rgba(139,92,246,0.12);border-radius:8px;margin-bottom:6px">
+        <div>
+          <div style="font-size:13px;font-weight:700">${p.nome}</div>
+          <div style="font-size:11px;color:var(--muted)">${p.mes}/${p.ano}${p.data ? ' · ' + p.data.split('-').reverse().join('/') : ''}</div>
+        </div>
+        <div style="font-size:13px;font-weight:700;color:var(--accent)">R$ ${parseFloat(p.valor||0).toFixed(2).replace('.',',')}</div>
+      </div>`;
+    });
+    html += '</div>';
+  }
+
+  // Total app vs valores no PDF
+  html += `<div style="padding:12px;background:var(--surface2);border-radius:10px;font-size:13px">
+    <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+      <span style="color:var(--muted)">Total registrado no app</span>
+      <strong style="color:var(--accent)">R$ ${totalApp.toFixed(2).replace('.',',')}</strong>
+    </div>
+    <div style="font-size:11px;color:var(--muted)">Nota: a busca por nome é aproximada. Use o texto extraído acima para conferência detalhada.</div>
+  </div>`;
+
+  el.innerHTML = html;
+}
+
+function confirmarSaldoConferir() {
+  const valStr = document.getElementById('pdfConferirSaldo').value;
+  const dataStr = document.getElementById('pdfConferirData').value;
+  const val = parseFloat(String(valStr).replace(',','.'));
+  if (isNaN(val) || val === 0) { alert('Digite um valor válido para o saldo.'); return; }
+  const dataFmt = dataStr ? dataStr.split('-').reverse().join('/') : new Date().toLocaleDateString('pt-BR');
+  saldoBanco = { valor: val, data: dataFmt };
+  const inp = document.getElementById('bancoSaldoInput');
+  if (inp) inp.value = val;
+  save();
+  const saldoApp = pagamentos.filter(p=>p.status==='pago').reduce((s,p)=>s+parseFloat(p.valor||0),0)
+    - gastos.reduce((s,g)=>s+parseFloat(g.valor||0),0);
+  atualizarPainelBanco(saldoApp);
+  mostrarToast('✅ Saldo bancário salvo: R$ ' + val.toFixed(2).replace('.',','));
 }
 
 function lerPdfBanco(input) {
@@ -3073,7 +4103,7 @@ async function enviarGoogleDrive() {
   const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
   const blob = new Blob([wbout], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
   const hoje = new Date().toISOString().split('T')[0];
-  const nomeArquivo = 'gestao-jovens-ibc-' + hoje + '.xlsx';
+  const nomeArquivo = 'gestao-mmidia-' + hoje + '.xlsx';
 
   // Tenta compartilhar via Web Share API (Android/iOS abre opção de salvar no Drive)
   if (navigator.share && navigator.canShare) {
@@ -3141,6 +4171,28 @@ function importarExcel(input) {
     input.value = '';
   };
   reader.readAsBinaryString(file);
+}
+
+
+// ===== RECUPERAÇÃO DE DADOS =====
+const _DADOS_BACKUP = {"membros":[],"pagamentos":[],"gastos":[]};
+
+function recuperarDados() {
+  if (!confirm('Restaurar backup de 12/03/2026?\n\n👥 10 membros\n💳 41 pagamentos\n\nIsso vai substituir os dados atuais.')) return;
+  try {
+    _DADOS_BACKUP.savedAt = new Date().toISOString();
+    localStorage.setItem('jovens_ibc_dados', JSON.stringify(_DADOS_BACKUP));
+    membros = _DADOS_BACKUP.membros;
+    pagamentos = _DADOS_BACKUP.pagamentos;
+    gastos = _DADOS_BACKUP.gastos || [];
+    save();
+    renderAll();
+    renderHome();
+    mostrarToast('✅ Dados restaurados! ' + membros.length + ' membros, ' + pagamentos.length + ' pagamentos.');
+    document.getElementById('btnRecuperar').style.display = 'none';
+  } catch(e) {
+    alert('Erro: ' + e.message);
+  }
 }
 
 // close modals on overlay click
