@@ -4175,7 +4175,7 @@ function importarExcel(input) {
 
 
 // ===== RECUPERAÇÃO DE DADOS =====
-const _DADOS_BACKUP = {"membros":[],"pagamentos":[],"gastos":[]};
+const _DADOS_BACKUP = {"membros": [{"id": "1773430666420", "nome": "Anna Lúcia", "contato": "", "valor": "10.00", "data": "2026-01-01", "obs": ""}, {"id": "1773430666421", "nome": "Calebe Maia", "contato": "", "valor": "10.00", "data": "2026-01-01", "obs": ""}, {"id": "1773430666422", "nome": "Catarina", "contato": "", "valor": "10.00", "data": "2026-01-01", "obs": ""}, {"id": "1773430666423", "nome": "Elionay", "contato": "", "valor": "10.00", "data": "2026-01-01", "obs": ""}, {"id": "1773430666424", "nome": "Gustavo", "contato": "", "valor": "10.00", "data": "2026-01-01", "obs": ""}, {"id": "1773430666425", "nome": "Karen Duque", "contato": "", "valor": "10.00", "data": "2026-01-01", "obs": ""}, {"id": "1773430666426", "nome": "Nicole", "contato": "", "valor": "10.00", "data": "2026-01-01", "obs": ""}, {"id": "1773430666427", "nome": "Victor", "contato": "", "valor": "10.00", "data": "2026-01-01", "obs": ""}], "pagamentos": [], "gastos": []};
 
 function recuperarDados() {
   if (!confirm('Restaurar backup de 12/03/2026?\n\n👥 10 membros\n💳 41 pagamentos\n\nIsso vai substituir os dados atuais.')) return;
