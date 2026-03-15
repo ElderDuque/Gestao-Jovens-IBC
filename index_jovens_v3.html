@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APP Jovens</title>
+<style>
+body{font-family:Arial;background:#0f172a;color:white;padding:20px}
+.card{background:#111827;padding:20px;border-radius:12px;margin-bottom:20px}
+input,select,button{padding:10px;margin-top:10px;border-radius:8px;border:none}
+button{background:#22c55e;color:black;font-weight:bold}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+</style>
+</head>
+
+<body>
+
+<h2>Banco</h2>
+
+<div class="card">
+<h3>Calculadora do Banco</h3>
+
+<label>Valor</label><br>
+<input id="valorBanco" type="number" placeholder="0.00">
+
+<div class="row">
+<label><input type="radio" name="modo" value="definir" checked> Definir saldo total</label>
+<label><input type="radio" name="modo" value="somar"> Somar ao saldo atual</label>
+</div>
+
+<button onclick="sincronizar()">Sincronizar</button>
+
+</div>
+
+<div class="card">
+<h3>Saldo no Banco</h3>
+<div id="saldoBanco">0</div>
+</div>
+
+<div class="card">
+<h3>Saldo no APP</h3>
+<div id="saldoApp">0</div>
+</div>
+
+<script>
+
+let saldoBanco = 0
+let saldoApp = 0
+
+function sincronizar(){
+
+let valor = parseFloat(document.getElementById("valorBanco").value || 0)
+let modo = document.querySelector("input[name='modo']:checked").value
+
+if(modo === "definir"){
+saldoBanco = valor
+}else{
+saldoBanco += valor
+}
+
+document.getElementById("saldoBanco").innerText = saldoBanco.toFixed(2)
+calcularApp()
+
+}
+
+function calcularApp(){
+
+let entradas = 0
+let gastos = 0
+
+saldoApp = entradas - gastos
+
+document.getElementById("saldoApp").innerText = saldoApp.toFixed(2)
+
+}
+
+</script>
+
+</body>
+</html>
