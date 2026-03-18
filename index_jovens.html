@@ -458,6 +458,7 @@ window.addEventListener('appinstalled', () => {
   <button class="nav-btn" onclick="switchTab('importar',this)">📥 Importar Extrato</button>
   <button class="nav-btn" onclick="switchTab('editar',this)">✏️ Editar Membros</button>
   <button class="nav-btn" onclick="switchTab('caixa',this)">💰 Caixa</button>
+  <button class="nav-btn" onclick="switchTab('calculadora',this)">🧮 Calculadora IA</button>
 </nav>
 
 <div class="main">
@@ -963,6 +964,51 @@ window.addEventListener('appinstalled', () => {
   </div>
 
 </div>
+
+  <!-- ===== CALCULADORA INTELIGENTE IA ===== -->
+  <div class="section" id="tab-calculadora">
+    <div style="padding:8px 0 20px">
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:22px;margin-bottom:4px">🧮 Calculadora Inteligente IA</div>
+      <div style="font-size:13px;color:var(--muted)">Faça perguntas sobre os dados financeiros do Jovens IBC</div>
+    </div>
+
+    <div id="calcIaApiBanner" style="padding:12px 16px;border-radius:10px;font-size:13px;margin-bottom:20px;background:rgba(255,107,107,0.08);border:1px solid rgba(255,107,107,0.2);color:#ff6b6b">
+      ⚠️ Chave da API não configurada. Configure em <strong>⚙️ API</strong> no topo para usar a Calculadora IA.
+    </div>
+
+    <div style="margin-bottom:20px">
+      <div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">💡 Perguntas Rápidas</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button onclick="usarPerguntaRapida(this)" data-q="Qual é o saldo atual do caixa? Mostre entradas, saídas e saldo disponível." style="padding:8px 14px;border-radius:20px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:12px;cursor:pointer;transition:border-color 0.15s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">💰 Saldo do caixa</button>
+        <button onclick="usarPerguntaRapida(this)" data-q="Quem está com mensalidade em atraso? Liste os nomes e quantos meses estão atrasados." style="padding:8px 14px;border-radius:20px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:12px;cursor:pointer;transition:border-color 0.15s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">❌ Quem está atrasado?</button>
+        <button onclick="usarPerguntaRapida(this)" data-q="Faça um resumo completo do mês atual: quem pagou, quem está pendente, total arrecadado e situação do caixa." style="padding:8px 14px;border-radius:20px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:12px;cursor:pointer;transition:border-color 0.15s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">📊 Resumo do mês</button>
+        <button onclick="usarPerguntaRapida(this)" data-q="Qual membro tem o melhor histórico de pagamentos? Analise a assiduidade de todos." style="padding:8px 14px;border-radius:20px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:12px;cursor:pointer;transition:border-color 0.15s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">🏆 Melhor pagador</button>
+        <button onclick="usarPerguntaRapida(this)" data-q="Gere uma mensagem de cobrança gentil para enviar no WhatsApp para os membros com pagamento pendente neste mês." style="padding:8px 14px;border-radius:20px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:12px;cursor:pointer;transition:border-color 0.15s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">💬 Mensagem de cobrança</button>
+      </div>
+    </div>
+
+    <div style="background:var(--surface);border:1px solid rgba(139,92,246,0.3);border-radius:var(--radius);padding:24px;margin-bottom:24px">
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px;margin-bottom:12px">🤖 Pergunte ao Claude</div>
+      <textarea id="calcIaPergunta" placeholder="Ex: Qual foi a arrecadação total do grupo no último trimestre? Quem ainda não pagou março?&#10;&#10;O Claude tem acesso completo a todos os dados financeiros do Jovens IBC." style="width:100%;min-height:100px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;padding:12px 14px;resize:vertical;outline:none;transition:border-color 0.2s;box-sizing:border-box"></textarea>
+      <div style="display:flex;gap:10px;margin-top:12px;align-items:center;flex-wrap:wrap">
+        <button onclick="enviarPerguntaIA()" id="btnEnviarIA" style="background:var(--accent);color:#fff;border:none;border-radius:10px;padding:12px 24px;font-family:'Syne',sans-serif;font-weight:700;font-size:14px;cursor:pointer;display:flex;align-items:center;gap:8px">
+          <span id="btnEnviarIAIcon">✨</span> Perguntar
+        </button>
+        <button onclick="limparCalculadora()" style="background:var(--surface2);color:var(--muted);border:1px solid var(--border);border-radius:10px;padding:12px 18px;font-family:'Syne',sans-serif;font-weight:600;font-size:13px;cursor:pointer">🗑️ Limpar</button>
+        <div id="calcIaLoading" style="display:none;font-size:13px;color:var(--muted)">⏳ Analisando dados...</div>
+      </div>
+      <div id="calcIaResposta" style="display:none;background:var(--surface2);border:1px solid rgba(139,92,246,0.2);border-radius:10px;padding:18px;font-size:14px;line-height:1.7;color:var(--text);white-space:pre-wrap;margin-top:16px;min-height:80px"></div>
+    </div>
+
+    <div id="calcIaHistorico" style="display:none">
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between">
+        <span>📝 Histórico da sessão</span>
+        <button onclick="limparHistoricoIA()" style="font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer">Limpar</button>
+      </div>
+      <div id="calcIaHistoricoLista"></div>
+    </div>
+  </div>
+
 <div class="modal-overlay" id="modalMembro">
   <div class="modal">
     <h3 id="modalMembroTitle">Novo Membro</h3>
@@ -1817,6 +1863,7 @@ function switchTab(tab, el) {
   document.getElementById('tab-' + tab).classList.add('active');
   if (el) el.classList.add('active');
   if (tab === 'extrato') { setExtModo('mes'); }
+  if (tab === 'calculadora') { atualizarBannerApiCalculadora(); }
   if (tab === 'caixa') { renderCaixa(); }
   if (tab === 'home') { renderHome(); }
   // Esconde stats bar na tela Início (já tem resumo lá)
@@ -3051,7 +3098,7 @@ function registrarDoExtrato(membroId, valor, mes, ano) {
 
 // ===== CONFIGURAÇÃO DA CHAVE API =====
 function abrirConfigApi() {
-  const saved = localStorage.getItem('jovens_ibc_api_key') || localStorage.getItem('anthropic_api_key') || '';
+  const saved = localStorage.getItem('jovens_ibc_v2_api_key') || '';
   const input = document.getElementById('apiKeyInput');
   if (input) input.value = saved;
   const status = document.getElementById('apiKeyStatus');
@@ -3073,7 +3120,7 @@ function salvarApiKey() {
   const val = document.getElementById('apiKeyInput').value.trim();
   if (!val) { alert('Digite a chave antes de salvar.'); return; }
   if (!val.startsWith('sk-ant-')) { alert('Chave inválida. Deve começar com sk-ant-'); return; }
-  localStorage.setItem('jovens_ibc_api_key', val);
+  localStorage.setItem('jovens_ibc_v2_api_key', val);
   atualizarBotaoApi();
   closeModal('apiKey');
   alert('✅ Chave salva! Agora a leitura de PDF com IA está ativada.');
@@ -3082,20 +3129,19 @@ function salvarApiKey() {
 function atualizarBotaoApi() {
   const btn = document.getElementById('btnApiStatus');
   if (!btn) return;
-  const key = localStorage.getItem('jovens_ibc_api_key') || localStorage.getItem('anthropic_api_key');
+  const key = localStorage.getItem('jovens_ibc_v2_api_key') || '';
   if (key) {
     btn.textContent = '✅ API';
     btn.style.color = 'var(--accent)';
     btn.style.borderColor = 'rgba(139,92,246,0.3)';
-    // API ativa → modo automático PDF
     setModoSaldo('auto');
   } else {
     btn.textContent = '⚙️ API';
     btn.style.color = '';
     btn.style.borderColor = '';
-    // API inativa → modo manual
     setModoSaldo('manual');
   }
+  if (typeof atualizarBannerApiCalculadora === 'function') atualizarBannerApiCalculadora();
 }
 
 // ========== CAIXA ==========
@@ -4222,9 +4268,152 @@ init();
 </script>
 
 <script>
+
+
+// ===== CALCULADORA INTELIGENTE IA =====
+let _calcIaHistorico = [];
+
+function atualizarBannerApiCalculadora() {
+  const banner = document.getElementById('calcIaApiBanner');
+  if (!banner) return;
+  const key = getApiKey();
+  if (key) {
+    banner.style.background = 'rgba(139,92,246,0.08)';
+    banner.style.border = '1px solid rgba(139,92,246,0.2)';
+    banner.style.color = 'var(--accent)';
+    banner.innerHTML = '✅ API configurada! A Calculadora IA está pronta.';
+  } else {
+    banner.style.background = 'rgba(255,107,107,0.08)';
+    banner.style.border = '1px solid rgba(255,107,107,0.2)';
+    banner.style.color = '#ff6b6b';
+    banner.innerHTML = '⚠️ Chave da API não configurada. Configure em <strong>⚙️ API</strong> no topo.';
+  }
+}
+
+function usarPerguntaRapida(btn) {
+  document.getElementById('calcIaPergunta').value = btn.dataset.q;
+  enviarPerguntaIA();
+}
+
+function limparCalculadora() {
+  document.getElementById('calcIaPergunta').value = '';
+  const resp = document.getElementById('calcIaResposta');
+  if (resp) { resp.innerHTML = ''; resp.style.display = 'none'; }
+}
+
+function limparHistoricoIA() {
+  _calcIaHistorico = [];
+  const hist = document.getElementById('calcIaHistorico');
+  if (hist) hist.style.display = 'none';
+}
+
+async function enviarPerguntaIA() {
+  const pergunta = document.getElementById('calcIaPergunta').value.trim();
+  if (!pergunta) return alert('Digite uma pergunta!');
+  const key = getApiKey();
+  if (!key) { alert('Configure a chave da API primeiro (botão ⚙️ API no topo).'); return; }
+
+  const btn = document.getElementById('btnEnviarIA');
+  const icon = document.getElementById('btnEnviarIAIcon');
+  const loading = document.getElementById('calcIaLoading');
+  const respostaEl = document.getElementById('calcIaResposta');
+
+  btn.disabled = true; icon.textContent = '⏳'; loading.style.display = 'block';
+  respostaEl.style.display = 'none';
+
+  // Monta contexto completo dos dados
+  const mes = getSelectedMes(), ano = getSelectedAno();
+  const pgMesAtual = pagamentos.filter(p => parseInt(p.mes)===mes && parseInt(p.ano)===ano);
+  const pagosAtual = membros.filter(m => pgMesAtual.find(p => p.membroId===m.id && p.status==='pago'));
+  const pendentesAtual = membros.filter(m => !pgMesAtual.find(p => p.membroId===m.id && p.status==='pago'));
+  const totalEntradas = pagamentos.filter(p => p.status==='pago').reduce((s,p) => s + parseFloat(p.valor||0), 0);
+  const totalGastosCx = gastos.reduce((s,g) => s + parseFloat(g.valor||0), 0);
+  const saldoCaixa = totalEntradas - totalGastosCx;
+
+  const hoje = new Date();
+  const assiduidadeResumo = membros.map(m => {
+    let pagos=0, total=0;
+    for(let i=5;i>=0;i--){const d=new Date(hoje.getFullYear(),hoje.getMonth()-i,1);const pg=pagamentos.find(p=>p.membroId===m.id&&parseInt(p.mes)===d.getMonth()&&parseInt(p.ano)===d.getFullYear()&&p.status==='pago');total++;if(pg)pagos++;}
+    return { nome:m.nome, valorMensalidade:m.valor, pagosMes:pagos, totalMeses:total, pct:Math.round((pagos/total)*100) };
+  });
+
+  const contexto = `Você é um assistente financeiro do grupo Jovens IBC. Responda em português, de forma clara e útil.
+
+=== DADOS DO JOVENS IBC ===
+Mês visualizado: ${MESES[mes]}/${ano}
+
+MEMBROS (${membros.length} total):
+${membros.map(m=>`- ${m.nome} | Mensalidade: R$ ${m.valor} | Desde: ${m.data||'—'}`).join('\n')}
+
+SITUAÇÃO DO MÊS (${MESES[mes]}/${ano}):
+Em dia (${pagosAtual.length}): ${pagosAtual.map(m=>{const pg=pgMesAtual.find(p=>p.membroId===m.id&&p.status==='pago');return m.nome+' (R$ '+(pg?parseFloat(pg.valor||0).toFixed(2):'?')+')';}).join(', ')||'nenhum'}
+Pendentes (${pendentesAtual.length}): ${pendentesAtual.map(m=>m.nome).join(', ')||'nenhum'}
+
+CAIXA GERAL:
+Total arrecadado: R$ ${totalEntradas.toFixed(2)}
+Total de gastos: R$ ${totalGastosCx.toFixed(2)}
+Saldo disponível: R$ ${saldoCaixa.toFixed(2)}
+${saldoBanco?`Saldo no banco: R$ ${parseFloat(saldoBanco.valor).toFixed(2)} em ${saldoBanco.data}`:'Saldo no banco: não informado'}
+
+GASTOS (${gastos.length}):
+${gastos.length?gastos.map(g=>`- ${g.data||'—'} | ${g.desc} | R$ ${g.valor} | ${g.categoria}`).join('\n'):'Nenhum gasto registrado'}
+
+ASSIDUIDADE (últimos 6 meses):
+${assiduidadeResumo.map(m=>`- ${m.nome}: ${m.pagosMes}/${m.totalMeses} meses pagos (${m.pct}%)`).join('\n')}
+
+PAGAMENTOS RECENTES:
+${pagamentos.slice(-20).map(p=>{const m=membros.find(x=>x.id===p.membroId);return`${MESES[p.mes]}/${p.ano} | ${m?m.nome:'(removido)'} | R$ ${p.valor} | ${p.status} | ${p.data||'sem data'}`;}).join('\n')}`;
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1500,
+        system: contexto,
+        messages: [..._calcIaHistorico, { role: 'user', content: pergunta }]
+      })
+    });
+
+    if (!response.ok) { const err = await response.json(); throw new Error(err.error?.message || 'Erro na API ('+response.status+')'); }
+    const data = await response.json();
+    const resposta = data.content.map(c => c.text||'').join('');
+
+    _calcIaHistorico.push({ role: 'user', content: pergunta });
+    _calcIaHistorico.push({ role: 'assistant', content: resposta });
+    if (_calcIaHistorico.length > 20) _calcIaHistorico = _calcIaHistorico.slice(-20);
+
+    respostaEl.textContent = resposta;
+    respostaEl.style.display = 'block';
+    renderHistoricoIA();
+    document.getElementById('calcIaPergunta').value = '';
+  } catch(err) {
+    respostaEl.textContent = '❌ Erro: ' + err.message;
+    respostaEl.style.display = 'block';
+    respostaEl.style.borderLeft = '3px solid #ff6b6b';
+  } finally {
+    btn.disabled = false; icon.textContent = '✨'; loading.style.display = 'none';
+  }
+}
+
+function renderHistoricoIA() {
+  const hist = document.getElementById('calcIaHistorico');
+  const lista = document.getElementById('calcIaHistoricoLista');
+  if (!hist || !lista) return;
+  if (_calcIaHistorico.length === 0) { hist.style.display = 'none'; return; }
+  hist.style.display = 'block';
+  const pares = [];
+  for (let i = 0; i < _calcIaHistorico.length; i += 2) {
+    if (_calcIaHistorico[i] && _calcIaHistorico[i+1]) pares.push({ q: _calcIaHistorico[i].content, a: _calcIaHistorico[i+1].content });
+  }
+  lista.innerHTML = pares.map(p => `<div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px"><div style="font-size:12px;color:var(--muted);margin-bottom:8px">💬 Você</div><div style="font-size:13px;color:var(--text);margin-bottom:12px;font-style:italic">"${p.q}"</div><div style="font-size:12px;color:var(--accent);margin-bottom:8px">🤖 Claude</div><div style="font-size:13px;line-height:1.6;white-space:pre-wrap">${p.a}</div></div>`).join('');
+}
+
 // ===== CONFIG DA API — lida do localStorage =====
 function getApiKey() {
-  return localStorage.getItem('jovens_ibc_api_key') || localStorage.getItem('anthropic_api_key') || '';
+  // Chave EXCLUSIVA deste app — NUNCA usa a chave do Matriz
+  return localStorage.getItem('jovens_ibc_v2_api_key') || '';
 }
 
 const _origFetch = window.fetch;
