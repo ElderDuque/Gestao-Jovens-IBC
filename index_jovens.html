@@ -14,7 +14,7 @@
   <link rel="apple-touch-icon" href="icon-192.png">
 
 <title>Jovens IBC — Mensalidades</title>
-<!-- v5.4 -->
+<!-- v5.5 -->
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -1992,7 +1992,9 @@ function salvarMembro() {
     });
   }
   modal.dataset.editingId = '';
-   closeModal('membro'); renderAll();
+  save();
+  closeModal('membro');
+  renderAll();
 }
 
 function editarMembroBtn(btn) { editarMembro(btn.dataset.id); }
@@ -2036,8 +2038,9 @@ function salvarEdicaoInline(id) {
   membros[idx].valor = document.getElementById('edit-valor-'+id).value;
   membros[idx].data = document.getElementById('edit-data-'+id).value;
   membros[idx].obs = document.getElementById('edit-obs-'+id).value;
-  
+  save();
   renderAll();
+  mostrarToast('✅ Membro atualizado!');
   const row = document.getElementById('edit-row-'+id);
   if (row) { row.style.background = 'rgba(139,92,246,0.1)'; setTimeout(()=>row.style.background='',800); }
 }
