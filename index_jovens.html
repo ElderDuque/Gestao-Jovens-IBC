@@ -2382,7 +2382,7 @@ function gerarExtrato() {
     const pg = pgMes.find(p => p.membroId === m.id && p.status === 'pago');
     return s + parseFloat(pg ? pg.valor || 0 : 0);
   }, 0);
-  const totalAcumulado = (() => { const ch = new Set(); let s = 0; pagamentos.filter(p => p.status === 'pago').forEach(p => { const k = p.membroId+'_'+p.mes+'_'+p.ano; if (!ch.has(k)) { ch.add(k); s += parseFloat(p.valor||0); } }); return s; })();
+  const totalAcumulado = pagamentos.filter(p => p.status === 'pago').reduce((s,p) => s + parseFloat(p.valor||0), 0);
   const totalGastos = gastos.reduce((s,g) => s + parseFloat(g.valor||0), 0);
   const saldoDisponivel = totalAcumulado - totalGastos;
 
@@ -2566,7 +2566,7 @@ function copiarExtratoMes(mes, ano) {
     const pg = pgMes.find(p => p.membroId === m.id && p.status === 'pago');
     return s + parseFloat(pg ? pg.valor || 0 : 0);
   }, 0);
-  const totalAcum = (() => { const ch = new Set(); let s = 0; pagamentos.filter(p => p.status === 'pago').forEach(p => { const k = p.membroId+'_'+p.mes+'_'+p.ano; if (!ch.has(k)) { ch.add(k); s += parseFloat(p.valor||0); } }); return s; })();
+  const totalAcum = pagamentos.filter(p => p.status === 'pago').reduce((s,p) => s + parseFloat(p.valor||0), 0);
   const totalGast = gastos.reduce((s,g) => s + parseFloat(g.valor||0), 0);
   const linhas = [
     `📊 *EXTRATO — ${MESES[mes].toUpperCase()} ${ano}*`,
@@ -2638,7 +2638,7 @@ function compartilharExtrato() {
       linhas.push('Total do mes: R$ ' + total.toFixed(2).replace('.',','));
       linhas.push('');
     }
-    const totalAcum = (function() { const ch = new Set(); let s = 0; pagamentos.filter(p => p.status === 'pago').forEach(p => { const k = p.membroId+'_'+p.mes+'_'+p.ano; if (!ch.has(k)) { ch.add(k); s += parseFloat(p.valor||0); } }); return s; })();
+    const totalAcum = pagamentos.filter(p => p.status === 'pago').reduce((s,p) => s + parseFloat(p.valor||0), 0);
     const totalGast = gastos.reduce(function(s,g) { return s + parseFloat(g.valor||0); }, 0);
     linhas.push('- - - - - - - - - - -');
     linhas.push('ACUMULADO GERAL');
@@ -3502,13 +3502,7 @@ function definirSaldoBancoManual() {
   saldoBanco = { valor: novoValor, data: dataFmt };
   save();
 
-  const totalEntradas = (() => {
-    const ch = new Set(); let s = 0;
-    pagamentos.filter(p => p.status === 'pago').forEach(p => {
-      const k = p.membroId + '_' + p.mes + '_' + p.ano;
-      if (!ch.has(k)) { ch.add(k); s += parseFloat(p.valor || 0); }
-    }); return s;
-  })();
+  const totalEntradas = pagamentos.filter(p => p.status === 'pago').reduce((s,p) => s + parseFloat(p.valor||0), 0);
   const saldoApp = totalEntradas - gastos.reduce((s, g) => s + parseFloat(g.valor || 0), 0);
   atualizarPainelBanco(saldoApp);
 
@@ -3763,13 +3757,7 @@ async function processarPdfBanco(file) {
     if (inp) inp.value = saldoBanco.valor;
 
     save();
-    const totalEntradas = (function() {
-      const ch = new Set(); let s = 0;
-      pagamentos.filter(function(p) { return p.status === 'pago'; }).forEach(function(p) {
-        const k = p.membroId + '_' + p.mes + '_' + p.ano;
-        if (!ch.has(k)) { ch.add(k); s += parseFloat(p.valor || 0); }
-      }); return s;
-    })();
+    const totalEntradas = pagamentos.filter(p => p.status === 'pago').reduce((s,p) => s + parseFloat(p.valor||0), 0);
     const saldoApp = totalEntradas - gastos.reduce(function(s, g) { return s + parseFloat(g.valor || 0); }, 0);
     atualizarPainelBanco(saldoApp);
     mostrarBancoStatus('✅ Saldo lido pela IA: R$ ' + saldoBanco.valor.toFixed(2).replace('.',','), 'ok');
