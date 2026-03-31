@@ -648,6 +648,15 @@ window.addEventListener('appinstalled', () => {
 
   <!-- CAIXA -->
   <div class="section" id="tab-caixa">
+    <!-- Banner pagamentos órfãos -->
+    <div id="orphanBanner" style="display:none;background:rgba(255,107,107,0.08);border:1px solid rgba(255,107,107,0.3);border-radius:12px;padding:14px 16px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+      <div>
+        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--accent2)">⚠️ Pagamentos de membros removidos</div>
+        <div id="orphanDesc" style="font-size:12px;color:var(--muted);margin-top:3px"></div>
+      </div>
+      <button onclick="limparPagamentosOrfaos()" class="btn btn-danger" style="font-size:12px;white-space:nowrap">🗑️ Limpar</button>
+    </div>
+
     <!-- Cards de saldo -->
     <div class="stats" style="margin-bottom:16px" id="caixaStats">
       <div class="stat-card">
@@ -2354,9 +2363,23 @@ function editarMembro(id) {
 }
 
 function deletarMembro(id) {
-  if (!confirm('Remover membro? Seus pagamentos serão mantidos.')) return;
-  membros = membros.filter(m => m.id !== id);
-   renderAll();
+  const m = membros.find(mb => mb.id === id);
+  const nome = m ? m.nome : 'este membro';
+  const pgsMembro = pagamentos.filter(p => p.membroId === id);
+  let msg = `Remover "${nome}"?`;
+  if (pgsMembro.length > 0) {
+    msg += `\n\nEle possui ${pgsMembro.length} pagamento(s) registrado(s).\nClique OK para remover o membro E os pagamentos.\nClique Cancelar para manter.`;
+  }
+  if (!confirm(msg)) return;
+  membros = membros.filter(mb => mb.id !== id);
+  if (pgsMembro.length > 0) {
+    if (confirm(`Deseja também apagar os ${pgsMembro.length} pagamento(s) de "${nome}"?`)) {
+      pagamentos = pagamentos.filter(p => p.membroId !== id);
+    }
+  }
+  salvarDados();
+  renderAll();
+  mostrarToast(`✅ "${nome}" removido com sucesso!`);
 }
 
 // ========== PAGAMENTOS ==========
@@ -3116,6 +3139,7 @@ const CATEG_LABELS = { equipamento:'🔧 Equipamento', evento:'🎉 Evento', mat
 function renderCaixa() {
   const el = document.getElementById('tabelaCaixa');
   if (!el) return;
+  verificarOrfaos();
 
   // Total entradas: soma de todos os pagamentos pagos
   const totalEntradas = pagamentos.filter(p => p.status === 'pago').reduce((s,p) => s + parseFloat(p.valor||0), 0);
@@ -4229,6 +4253,31 @@ function recuperarDados() {
 document.querySelectorAll('.modal-overlay').forEach(o => {
   o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
 });
+
+// Limpar pagamentos órfãos (de membros removidos)
+function verificarOrfaos() {
+  const ids = new Set(membros.map(m => m.id));
+  const orfaos = pagamentos.filter(p => !ids.has(p.membroId));
+  const banner = document.getElementById('orphanBanner');
+  const desc = document.getElementById('orphanDesc');
+  if (!banner) return;
+  if (orfaos.length > 0) {
+    banner.style.display = 'flex';
+    desc.textContent = `${orfaos.length} pagamento(s) sem membro vinculado encontrado(s).`;
+  } else {
+    banner.style.display = 'none';
+  }
+}
+
+function limparPagamentosOrfaos() {
+  const ids = new Set(membros.map(m => m.id));
+  const orfaos = pagamentos.filter(p => !ids.has(p.membroId));
+  if (!confirm(`Apagar ${orfaos.length} pagamento(s) de membros removidos? Esta ação não pode ser desfeita.`)) return;
+  pagamentos = pagamentos.filter(p => ids.has(p.membroId));
+  salvarDados();
+  renderAll();
+  mostrarToast('✅ Pagamentos órfãos removidos!');
+}
 
 // Toggle Editar Membros na aba Membros
 function toggleEditarMembros() {
