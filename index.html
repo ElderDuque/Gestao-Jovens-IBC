@@ -454,9 +454,6 @@ window.addEventListener('appinstalled', () => {
   <button class="nav-btn active" id="navHome" onclick="switchTab('home',this)">🏠 Início</button>
   <button class="nav-btn" onclick="switchTab('membros',this)">👥 Membros</button>
   <button class="nav-btn" onclick="switchTab('pagamentos',this)">💳 Pagamentos</button>
-  <button class="nav-btn" onclick="switchTab('extrato',this)">📤 Extrato</button>
-  <button class="nav-btn" onclick="switchTab('importar',this)">📥 Importar Extrato</button>
-  <button class="nav-btn" onclick="switchTab('editar',this)">✏️ Editar Membros</button>
   <button class="nav-btn" onclick="switchTab('caixa',this)">💰 Caixa</button>
 </nav>
 
@@ -505,7 +502,7 @@ window.addEventListener('appinstalled', () => {
   </div>
 
   <!-- MEMBROS -->
-  <div class="section active" id="tab-membros">
+  <div class="section" id="tab-membros">
     <div class="section-top">
       <div class="section-title">Membros Cadastrados</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
@@ -559,6 +556,35 @@ window.addEventListener('appinstalled', () => {
       </div>
       </div><!-- fim assiduidadeBody -->
     </div>
+
+    <!-- EDITAR MEMBROS (incorporado) -->
+    <div style="margin-top:32px">
+      <div onclick="toggleEditarMembros()" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;cursor:pointer;user-select:none">
+        <div>
+          <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:18px">✏️ Editar Membros <span id="editarMembrosChevron" style="font-size:14px;color:var(--muted)">▼</span></div>
+          <div style="font-size:12px;color:var(--muted);margin-top:3px">Toque para expandir/recolher</div>
+        </div>
+      </div>
+      <div id="editarMembrosBody" style="display:none">
+        <p style="font-size:13px;color:var(--muted);margin-bottom:16px">Edite os campos diretamente na tabela e clique em <strong style="color:var(--accent)">💾 Salvar</strong> para confirmar cada alteração.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Nome</th>
+                <th>Contato</th>
+                <th>Mensalidade (R$)</th>
+                <th>Data de Entrada</th>
+                <th>Observações</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tabelaEditar"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- PAGAMENTOS -->
@@ -599,176 +625,24 @@ window.addEventListener('appinstalled', () => {
         <tbody id="tabelaPagamentos"></tbody>
       </table>
     </div>
-  </div>
 
-  <!-- EXTRATO -->
-  <div class="section" id="tab-extrato">
-    <div class="section-top">
-      <div class="section-title">📤 Extrato</div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn btn-secondary" onclick="copiarExtrato()">📋 Copiar</button>
-        <button class="btn btn-primary" onclick="compartilharExtrato()">📤 Compartilhar</button>
+    <!-- Atalhos rápidos -->
+    <div style="margin-top:16px;margin-bottom:4px">
+      <div style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:12px">Acesso Rápido</div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px">
+        <button onclick="switchTab('caixa',document.querySelector('.nav-btn:nth-child(4)'));setTimeout(()=>switchCaixaSub('extrato'),50)"
+          style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 8px;background:var(--surface);border:1px solid var(--border);border-radius:14px;cursor:pointer;transition:all 0.2s"
+          onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+          <span style="font-size:26px">📤</span>
+          <span style="font-family:'Syne',sans-serif;font-weight:600;font-size:11px;color:var(--text)">Extrato</span>
+        </button>
+        <button onclick="switchTab('caixa',document.querySelector('.nav-btn:nth-child(4)'));setTimeout(()=>switchCaixaSub('importar'),50)"
+          style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 8px;background:var(--surface);border:1px solid var(--border);border-radius:14px;cursor:pointer;transition:all 0.2s"
+          onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+          <span style="font-size:26px">📥</span>
+          <span style="font-family:'Syne',sans-serif;font-weight:600;font-size:11px;color:var(--text)">Importar</span>
+        </button>
       </div>
-    </div>
-
-    <!-- Tipo: Simplificado / Detalhado -->
-    <div style="display:flex;gap:8px;margin-bottom:12px;">
-      <button id="extTipoBtn_simples" onclick="setExtTipo('simples')" style="flex:1;padding:10px;border-radius:10px;border:2px solid var(--accent);background:rgba(139,92,246,0.1);color:var(--accent);font-family:'Syne',sans-serif;font-weight:600;font-size:12px;cursor:pointer;">⚡ Simplificado</button>
-      <button id="extTipoBtn_detalhado" onclick="setExtTipo('detalhado')" style="flex:1;padding:10px;border-radius:10px;border:1px solid var(--border);background:var(--surface2);color:var(--muted);font-family:'Syne',sans-serif;font-weight:600;font-size:12px;cursor:pointer;">📋 Detalhado</button>
-    </div>
-
-    <div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap">
-      <button id="extModoBtn_mes" onclick="setExtModo('mes')" style="flex:1;padding:10px;border-radius:10px;border:2px solid var(--accent);background:rgba(139,92,246,0.1);color:var(--accent);font-family:'Syne',sans-serif;font-weight:600;font-size:12px;cursor:pointer;min-width:120px">📅 Mês Selecionado</button>
-      <button id="extModoBtn_historico" onclick="setExtModo('historico')" style="flex:1;padding:10px;border-radius:10px;border:1px solid var(--border);background:var(--surface2);color:var(--muted);font-family:'Syne',sans-serif;font-weight:600;font-size:12px;cursor:pointer;min-width:120px">📊 Histórico Mensal</button>
-    </div>
-
-    <div id="extrato-modo-mes">
-      <div class="extrato-box">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px">
-          <div>
-            <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px">Prévia para WhatsApp</div>
-            <div style="font-size:12px;color:var(--muted);margin-top:3px">Baseado no mês selecionado no topo</div>
-          </div>
-          <button class="btn btn-secondary" onclick="gerarExtrato()">🔄 Gerar</button>
-        </div>
-        <div class="extrato-preview" id="extratoPreview">Clique em "Gerar" para criar o extrato.</div>
-      </div>
-    </div>
-
-    <div id="extrato-modo-historico" style="display:none">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px">
-        <div style="font-size:13px;color:var(--muted)">Clique em um mês para expandir os detalhes</div>
-        <select id="extHistoricoQtd" onchange="renderHistorico()" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:7px 12px;font-size:12px;outline:none">
-          <option value="3">Últimos 3 meses</option>
-          <option value="6" selected>Últimos 6 meses</option>
-          <option value="12">Últimos 12 meses</option>
-        </select>
-      </div>
-      <div id="historicoContainer"></div>
-    </div>
-  </div>
-
-  <!-- IMPORTAR EXTRATO -->
-  <div class="section" id="tab-importar">
-    <div class="section-title" style="margin-bottom:20px">Importar & Analisar Extrato</div>
-
-    <!-- Upload PDF -->
-    <div class="parse-section" style="margin-bottom:0">
-      <div style="margin-bottom:14px">
-        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px">📎 Anexar PDF do Extrato</div>
-        <div style="font-size:12px;color:var(--muted);margin-top:3px">O Claude lê o PDF e identifica automaticamente os pagamentos</div>
-      </div>
-      <label id="pdfDropZone" for="pdfInput" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:32px 20px;border:2px dashed var(--border);border-radius:12px;cursor:pointer;transition:all 0.2s;background:var(--surface2);margin-bottom:12px"
-        ondragover="event.preventDefault();this.style.borderColor='var(--accent)';this.style.background='rgba(139,92,246,0.05)'"
-        ondragleave="this.style.borderColor='var(--border)';this.style.background='var(--surface2)'"
-        ondrop="handlePdfDrop(event)">
-        <div style="font-size:40px">📄</div>
-        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:var(--text)">Clique ou arraste o PDF aqui</div>
-        <div style="font-size:12px;color:var(--muted)">Extrato bancário, comprovante PIX ou qualquer PDF com pagamentos</div>
-        <input type="file" id="pdfInput" accept=".pdf" style="display:none" onchange="lerPdfExtrato(this)">
-      </label>
-      <div id="pdfStatus" style="display:none;padding:12px 16px;border-radius:10px;font-size:13px;margin-bottom:4px"></div>
-    </div>
-
-    <div style="display:flex;align-items:center;gap:12px;margin:20px 0">
-      <div style="flex:1;height:1px;background:var(--border)"></div>
-      <span style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">ou cole o texto</span>
-      <div style="flex:1;height:1px;background:var(--border)"></div>
-    </div>
-
-    <div class="parse-section">
-      <div class="section-top" style="margin-bottom:14px">
-        <div>
-          <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px">📝 Colar Texto do Extrato</div>
-          <div style="font-size:12px;color:var(--muted);margin-top:3px">Cole o texto do extrato do grupo e identifique automaticamente os pagadores</div>
-        </div>
-      </div>
-      <textarea class="form-control" id="extratoInput" placeholder="Cole aqui o extrato bancário ou mensagem do grupo...&#10;&#10;Ex:&#10;03/03 João Silva - R$ 50,00&#10;04/03 Maria Souza pagou mensalidade&#10;05/03 PIX recebido de Carlos - 50 reais"></textarea>
-      <div style="display:flex;gap:8px;margin-top:10px">
-        <button class="btn btn-primary" onclick="analisarExtrato()">🔍 Analisar Extrato</button>
-        <button class="btn btn-secondary" onclick="document.getElementById('extratoInput').value=''">🗑️ Limpar</button>
-      </div>
-      <div class="parse-result" id="parseResult"></div>
-    </div>
-    <div class="parse-section" style="margin-top:0">
-      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px;margin-bottom:14px">Registros Identificados</div>
-      <div id="registrosIdentificados"><div style="color:var(--muted);font-size:13px">Nenhum registro analisado ainda.</div></div>
-    </div>
-
-    <!-- PDF Bancário - Comparação -->
-    <div style="display:flex;align-items:center;gap:12px;margin:20px 0">
-      <div style="flex:1;height:1px;background:var(--border)"></div>
-      <span style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">conferir banco</span>
-      <div style="flex:1;height:1px;background:var(--border)"></div>
-    </div>
-
-    <div class="parse-section">
-      <div style="margin-bottom:14px">
-        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px">🔍 Conferir PDF do Banco</div>
-        <div style="font-size:12px;color:var(--muted);margin-top:3px">Carregue o extrato — o app mostra o que bate e o que diverge</div>
-      </div>
-      <label for="pdfBancoImportInput" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:24px 20px;border:2px dashed var(--border);border-radius:12px;cursor:pointer;background:var(--surface2);margin-bottom:12px">
-        <div style="font-size:36px">🏦</div>
-        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:var(--text)">Clique para selecionar o PDF do banco</div>
-        <div style="font-size:12px;color:var(--muted)">Sem necessidade de chave API</div>
-        <input type="file" id="pdfBancoImportInput" accept=".pdf" style="display:none" onchange="lerPdfBancoConferir(this)">
-      </label>
-      <div id="pdfConferirStatus" style="display:none;padding:10px 14px;border-radius:10px;font-size:13px;margin-bottom:10px"></div>
-
-      <!-- Resultado da conferência -->
-      <div id="pdfConferirResultado" style="display:none">
-
-        <!-- Saldo e data -->
-        <div style="background:var(--surface2);border-radius:12px;padding:14px;margin-bottom:16px">
-          <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Definir saldo do extrato</div>
-          <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
-            <div style="flex:1;min-width:130px">
-              <div style="font-size:12px;color:var(--muted);margin-bottom:4px">Saldo (R$)</div>
-              <input type="number" id="pdfConferirSaldo" step="0.01" placeholder="Ex: 211.98" style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:9px;font-size:14px;outline:none">
-            </div>
-            <div style="flex:1;min-width:130px">
-              <div style="font-size:12px;color:var(--muted);margin-bottom:4px">Data</div>
-              <input type="date" id="pdfConferirData" style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:9px;font-size:14px;outline:none">
-            </div>
-            <button onclick="confirmarSaldoConferir()" style="background:var(--accent);color:#000;border:none;border-radius:8px;padding:9px 18px;font-family:'Syne',sans-serif;font-weight:700;font-size:13px;cursor:pointer">💾 Salvar Saldo</button>
-          </div>
-        </div>
-
-        <!-- Texto bruto do PDF -->
-        <details style="margin-bottom:16px">
-          <summary style="font-size:13px;color:var(--muted);cursor:pointer;padding:8px 0">📄 Ver texto extraído do PDF ▼</summary>
-          <textarea id="pdfBancoTextoArea" style="width:100%;min-height:100px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:10px;font-size:11px;font-family:monospace;resize:vertical;margin-top:8px" readonly></textarea>
-        </details>
-
-        <!-- Comparação -->
-        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px;margin-bottom:12px">📊 Comparação com o App</div>
-        <div id="pdfConferirComparacao"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- EDITAR MEMBROS -->
-  <div class="section" id="tab-editar">
-    <div class="section-top">
-      <div class="section-title">Editar Dados dos Membros</div>
-      <button class="btn btn-primary" onclick="openModal('membro')">+ Novo Membro</button>
-    </div>
-    <p style="font-size:13px;color:var(--muted);margin-bottom:16px">Edite os campos diretamente na tabela e clique em <strong style="color:var(--accent)">💾 Salvar</strong> para confirmar cada alteração.</p>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Nome</th>
-            <th>Contato</th>
-            <th>Mensalidade (R$)</th>
-            <th>Data de Entrada</th>
-            <th>Observações</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody id="tabelaEditar"></tbody>
-      </table>
     </div>
   </div>
 
@@ -961,9 +835,146 @@ window.addEventListener('appinstalled', () => {
         <tbody id="tabelaCaixa"></tbody>
       </table>
     </div>
+      </div><!-- fim movimentacoesBody -->
+    </div><!-- fim movimentacoes card -->
+
+    <!-- SUB-ABAS: EXTRATO / IMPORTAR -->
+    <div style="margin-top:32px">
+      <div style="display:flex;gap:0;border-bottom:2px solid var(--border);margin-bottom:24px;overflow-x:auto;scrollbar-width:none">
+        <button id="caixaSubBtn_extrato" onclick="switchCaixaSub('extrato')" style="padding:11px 18px;border:none;background:none;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600;font-size:12px;letter-spacing:0.5px;text-transform:uppercase;color:var(--accent);border-bottom:2px solid var(--accent);margin-bottom:-2px;white-space:nowrap;transition:all 0.2s">📤 Extrato</button>
+        <button id="caixaSubBtn_importar" onclick="switchCaixaSub('importar')" style="padding:11px 18px;border:none;background:none;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600;font-size:12px;letter-spacing:0.5px;text-transform:uppercase;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:all 0.2s">📥 Importar Extrato</button>
+      </div>
+
+      <!-- SUB: EXTRATO -->
+      <div id="caixaSub_extrato">
+        <div class="section-top">
+          <div class="section-title">📤 Extrato</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn btn-secondary" onclick="copiarExtrato()">📋 Copiar</button>
+            <button class="btn btn-primary" onclick="compartilharExtrato()">📤 Compartilhar</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;margin-bottom:12px;">
+          <button id="extTipoBtn_simples" onclick="setExtTipo('simples')" style="flex:1;padding:10px;border-radius:10px;border:2px solid var(--accent);background:rgba(139,92,246,0.1);color:var(--accent);font-family:'Syne',sans-serif;font-weight:600;font-size:12px;cursor:pointer;">⚡ Simplificado</button>
+          <button id="extTipoBtn_detalhado" onclick="setExtTipo('detalhado')" style="flex:1;padding:10px;border-radius:10px;border:1px solid var(--border);background:var(--surface2);color:var(--muted);font-family:'Syne',sans-serif;font-weight:600;font-size:12px;cursor:pointer;">📋 Detalhado</button>
+        </div>
+        <div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap">
+          <button id="extModoBtn_mes" onclick="setExtModo('mes')" style="flex:1;padding:10px;border-radius:10px;border:2px solid var(--accent);background:rgba(139,92,246,0.1);color:var(--accent);font-family:'Syne',sans-serif;font-weight:600;font-size:12px;cursor:pointer;min-width:120px">📅 Mês Selecionado</button>
+          <button id="extModoBtn_historico" onclick="setExtModo('historico')" style="flex:1;padding:10px;border-radius:10px;border:1px solid var(--border);background:var(--surface2);color:var(--muted);font-family:'Syne',sans-serif;font-weight:600;font-size:12px;cursor:pointer;min-width:120px">📊 Histórico Mensal</button>
+        </div>
+        <div id="extrato-modo-mes">
+          <div class="extrato-box">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px">
+              <div>
+                <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px">Prévia para WhatsApp</div>
+                <div style="font-size:12px;color:var(--muted);margin-top:3px">Baseado no mês selecionado no topo</div>
+              </div>
+              <button class="btn btn-secondary" onclick="gerarExtrato()">🔄 Gerar</button>
+            </div>
+            <div class="extrato-preview" id="extratoPreview">Clique em "Gerar" para criar o extrato.</div>
+          </div>
+        </div>
+        <div id="extrato-modo-historico" style="display:none">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px">
+            <div style="font-size:13px;color:var(--muted)">Clique em um mês para expandir os detalhes</div>
+            <select id="extHistoricoQtd" onchange="renderHistorico()" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:7px 12px;font-size:12px;outline:none">
+              <option value="3">Últimos 3 meses</option>
+              <option value="6" selected>Últimos 6 meses</option>
+              <option value="12">Últimos 12 meses</option>
+            </select>
+          </div>
+          <div id="historicoContainer"></div>
+        </div>
+      </div>
+
+      <!-- SUB: IMPORTAR EXTRATO -->
+      <div id="caixaSub_importar" style="display:none">
+        <div class="section-title" style="margin-bottom:20px">Importar & Analisar Extrato</div>
+        <div class="parse-section" style="margin-bottom:0">
+          <div style="margin-bottom:14px">
+            <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px">📎 Anexar PDF do Extrato</div>
+            <div style="font-size:12px;color:var(--muted);margin-top:3px">O Claude lê o PDF e identifica automaticamente os pagamentos</div>
+          </div>
+          <label id="pdfDropZone" for="pdfInput" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:32px 20px;border:2px dashed var(--border);border-radius:12px;cursor:pointer;transition:all 0.2s;background:var(--surface2);margin-bottom:12px"
+            ondragover="event.preventDefault();this.style.borderColor='var(--accent)';this.style.background='rgba(139,92,246,0.05)'"
+            ondragleave="this.style.borderColor='var(--border)';this.style.background='var(--surface2)'"
+            ondrop="handlePdfDrop(event)">
+            <div style="font-size:40px">📄</div>
+            <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:var(--text)">Clique ou arraste o PDF aqui</div>
+            <div style="font-size:12px;color:var(--muted)">Extrato bancário, comprovante PIX ou qualquer PDF com pagamentos</div>
+            <input type="file" id="pdfInput" accept=".pdf" style="display:none" onchange="lerPdfExtrato(this)">
+          </label>
+          <div id="pdfStatus" style="display:none;padding:12px 16px;border-radius:10px;font-size:13px;margin-bottom:4px"></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;margin:20px 0">
+          <div style="flex:1;height:1px;background:var(--border)"></div>
+          <span style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">ou cole o texto</span>
+          <div style="flex:1;height:1px;background:var(--border)"></div>
+        </div>
+        <div class="parse-section">
+          <div class="section-top" style="margin-bottom:14px">
+            <div>
+              <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px">📝 Colar Texto do Extrato</div>
+              <div style="font-size:12px;color:var(--muted);margin-top:3px">Cole o texto do extrato do grupo e identifique automaticamente os pagadores</div>
+            </div>
+          </div>
+          <textarea class="form-control" id="extratoInput" placeholder="Cole aqui o extrato bancário ou mensagem do grupo...&#10;&#10;Ex:&#10;03/03 João Silva - R$ 50,00&#10;04/03 Maria Souza pagou mensalidade&#10;05/03 PIX recebido de Carlos - 50 reais"></textarea>
+          <div style="display:flex;gap:8px;margin-top:10px">
+            <button class="btn btn-primary" onclick="analisarExtrato()">🔍 Analisar Extrato</button>
+            <button class="btn btn-secondary" onclick="document.getElementById('extratoInput').value=''">🗑️ Limpar</button>
+          </div>
+          <div class="parse-result" id="parseResult"></div>
+        </div>
+        <div class="parse-section" style="margin-top:0">
+          <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px;margin-bottom:14px">Registros Identificados</div>
+          <div id="registrosIdentificados"><div style="color:var(--muted);font-size:13px">Nenhum registro analisado ainda.</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;margin:20px 0">
+          <div style="flex:1;height:1px;background:var(--border)"></div>
+          <span style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">conferir banco</span>
+          <div style="flex:1;height:1px;background:var(--border)"></div>
+        </div>
+        <div class="parse-section">
+          <div style="margin-bottom:14px">
+            <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px">🔍 Conferir PDF do Banco</div>
+            <div style="font-size:12px;color:var(--muted);margin-top:3px">Carregue o extrato — o app mostra o que bate e o que diverge</div>
+          </div>
+          <label for="pdfBancoImportInput" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:24px 20px;border:2px dashed var(--border);border-radius:12px;cursor:pointer;background:var(--surface2);margin-bottom:12px">
+            <div style="font-size:36px">🏦</div>
+            <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:var(--text)">Clique para selecionar o PDF do banco</div>
+            <div style="font-size:12px;color:var(--muted)">Sem necessidade de chave API</div>
+            <input type="file" id="pdfBancoImportInput" accept=".pdf" style="display:none" onchange="lerPdfBancoConferir(this)">
+          </label>
+          <div id="pdfConferirStatus" style="display:none;padding:10px 14px;border-radius:10px;font-size:13px;margin-bottom:10px"></div>
+          <div id="pdfConferirResultado" style="display:none">
+            <div style="background:var(--surface2);border-radius:12px;padding:14px;margin-bottom:16px">
+              <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Definir saldo do extrato</div>
+              <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
+                <div style="flex:1;min-width:130px">
+                  <div style="font-size:12px;color:var(--muted);margin-bottom:4px">Saldo (R$)</div>
+                  <input type="number" id="pdfConferirSaldo" step="0.01" placeholder="Ex: 211.98" style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:9px;font-size:14px;outline:none">
+                </div>
+                <div style="flex:1;min-width:130px">
+                  <div style="font-size:12px;color:var(--muted);margin-bottom:4px">Data</div>
+                  <input type="date" id="pdfConferirData" style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:9px;font-size:14px;outline:none">
+                </div>
+                <button onclick="confirmarSaldoConferir()" style="background:var(--accent);color:#000;border:none;border-radius:8px;padding:9px 18px;font-family:'Syne',sans-serif;font-weight:700;font-size:13px;cursor:pointer">💾 Salvar Saldo</button>
+              </div>
+            </div>
+            <details style="margin-bottom:16px">
+              <summary style="font-size:13px;color:var(--muted);cursor:pointer;padding:8px 0">📄 Ver texto extraído do PDF ▼</summary>
+              <textarea id="pdfBancoTextoArea" style="width:100%;min-height:100px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:10px;font-size:11px;font-family:monospace;resize:vertical;margin-top:8px" readonly></textarea>
+            </details>
+            <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px;margin-bottom:12px">📊 Comparação com o App</div>
+            <div id="pdfConferirComparacao"></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- fim sub-abas -->
   </div>
 
-</div>
+</div><!-- fim .main -->
 <div class="modal-overlay" id="modalMembro">
   <div class="modal">
     <h3 id="modalMembroTitle">Novo Membro</h3>
@@ -4218,6 +4229,33 @@ function recuperarDados() {
 document.querySelectorAll('.modal-overlay').forEach(o => {
   o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
 });
+
+// Toggle Editar Membros na aba Membros
+function toggleEditarMembros() {
+  const body = document.getElementById('editarMembrosBody');
+  const chevron = document.getElementById('editarMembrosChevron');
+  if (!body) return;
+  const open = body.style.display !== 'none';
+  body.style.display = open ? 'none' : 'block';
+  chevron.textContent = open ? '▼' : '▲';
+  if (!open) renderEditar && renderEditar();
+}
+
+// Sub-abas dentro de Caixa
+function switchCaixaSub(sub) {
+  ['extrato','importar'].forEach(s => {
+    const panel = document.getElementById('caixaSub_' + s);
+    const btn   = document.getElementById('caixaSubBtn_' + s);
+    if (!panel || !btn) return;
+    const active = s === sub;
+    panel.style.display = active ? 'block' : 'none';
+    btn.style.color = active ? 'var(--accent)' : 'var(--muted)';
+    btn.style.borderBottomColor = active ? 'var(--accent)' : 'transparent';
+  });
+  if (sub === 'extrato') {
+    gerarExtrato && setTimeout(gerarExtrato, 50);
+  }
+}
 
 init();
 </script>
