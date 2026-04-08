@@ -2664,7 +2664,9 @@ function editarPagamentoValor(id, valorAtual) {
 
 function deletarPagamento(id) {
   pagamentos = pagamentos.filter(p => p.id !== id);
-   renderAll();
+  save();
+  renderAll();
+  mostrarToast('🗑️ Lançamento removido!');
 }
 
 // ========== EXTRATO ==========
@@ -3244,10 +3246,10 @@ function renderDias() {
   // Filtrar movimentos do mês selecionado
   const entradas = pagamentos.filter(p => p.status === 'pago' && p.data && p.data.startsWith(mesSel)).map(p => {
     const m = membros.find(x => x.id === p.membroId);
-    return { data: p.data, desc: m ? m.nome : 'Membro removido', valor: parseFloat(p.valor||0), tipo: 'entrada' };
+    return { id: p.id, data: p.data, desc: m ? m.nome : 'Membro removido', valor: parseFloat(p.valor||0), tipo: 'entrada' };
   });
   const saidas = gastos.filter(g => g.data && g.data.startsWith(mesSel)).map(g => ({
-    data: g.data, desc: g.desc || 'Gasto', valor: parseFloat(g.valor||0), tipo: 'saida'
+    id: g.id, data: g.data, desc: g.desc || 'Gasto', valor: parseFloat(g.valor||0), tipo: 'saida'
   }));
 
   const movs = [...entradas, ...saidas].sort((a,b) => a.data.localeCompare(b.data));
@@ -3269,13 +3271,16 @@ function renderDias() {
     const totalDia = itens.reduce((s,i) => s + (i.tipo==='entrada' ? i.valor : -i.valor), 0);
     const rows = itens.map(i => `
       <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border)">
-        <div style="display:flex;align-items:center;gap:8px">
+        <div style="display:flex;align-items:center;gap:8px;flex:1;min-width:0">
           <span style="font-size:16px">${i.tipo==='entrada' ? '⬆️' : '⬇️'}</span>
-          <span style="font-size:13px;color:var(--text)">${i.desc}</span>
+          <span style="font-size:13px;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${i.desc}</span>
         </div>
-        <span style="font-family:'Syne',sans-serif;font-weight:700;color:${i.tipo==='entrada' ? 'var(--accent)' : 'var(--accent2)'}">
-          ${i.tipo==='entrada' ? '+' : '-'} R$ ${i.valor.toFixed(2).replace('.',',')}
-        </span>
+        <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+          <span style="font-family:'Syne',sans-serif;font-weight:700;color:${i.tipo==='entrada' ? 'var(--accent)' : 'var(--accent2)'}">
+            ${i.tipo==='entrada' ? '+' : '-'} R$ ${i.valor.toFixed(2).replace('.',',')}
+          </span>
+          <button onclick="${i.tipo==='entrada' ? `deletarPagamento('${i.id}')` : `deletarGasto('${i.id}')`}" style="width:24px;height:24px;border-radius:50%;border:none;background:rgba(255,107,107,0.15);color:#ff6b6b;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0" title="Remover">✕</button>
+        </div>
       </div>`).join('');
     return `
       <div style="margin-bottom:12px">
@@ -3339,10 +3344,10 @@ function editarData(tipo, id, dataAtual) {
 }
 
 function deletarGasto(id) {
-  if (!confirm('Remover este gasto?')) return;
   gastos = gastos.filter(g => g.id !== id);
   save();
   renderCaixa();
+  mostrarToast('🗑️ Gasto removido!');
 }
 
 
