@@ -667,9 +667,12 @@ window.addEventListener('appinstalled', () => {
         <div class="stat-label">Total Gasto</div>
         <div class="stat-val red" id="caixaSaidas">R$ 0</div>
       </div>
-      <div class="stat-card" style="grid-column:span 2">
-        <div class="stat-label">Saldo Calculado pelo App</div>
-        <div class="stat-val" id="caixaSaldo" style="font-size:32px">R$ 0</div>
+      <div class="stat-card" style="grid-column:span 2;display:flex;align-items:center;justify-content:space-between;gap:12px">
+        <div>
+          <div class="stat-label">Saldo Calculado pelo App</div>
+          <div class="stat-val" id="caixaSaldo" style="font-size:32px">R$ 0</div>
+        </div>
+        <button onclick="zerarCaixaCompleto()" style="flex-shrink:0;background:rgba(255,107,107,0.15);color:#ff6b6b;border:1px solid rgba(255,107,107,0.4);border-radius:10px;padding:10px 16px;font-family:'Syne',sans-serif;font-weight:700;font-size:13px;cursor:pointer;white-space:nowrap">🗑️ Zerar Caixa</button>
       </div>
     </div>
 
