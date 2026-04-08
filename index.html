@@ -649,12 +649,12 @@ window.addEventListener('appinstalled', () => {
   <!-- CAIXA -->
   <div class="section" id="tab-caixa">
     <!-- Banner pagamentos órfãos -->
-    <div id="orphanBanner" style="display:none;background:rgba(255,107,107,0.08);border:1px solid rgba(255,107,107,0.3);border-radius:12px;padding:14px 16px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+    <div id="orphanBanner" style="display:none;background:rgba(255,107,107,0.08);border:1px solid rgba(255,107,107,0.3);border-radius:12px;padding:14px 16px;margin-bottom:16px;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
       <div>
         <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--accent2)">⚠️ Pagamentos de membros removidos</div>
         <div id="orphanDesc" style="font-size:12px;color:var(--muted);margin-top:3px"></div>
       </div>
-      <button onclick="limparPagamentosOrfaos()" class="btn btn-danger" style="font-size:12px;white-space:nowrap">🗑️ Limpar</button>
+      <button onclick="limparPagamentosOrfaos()" class="btn btn-danger" style="font-size:12px;white-space:nowrap">🗑️ Limpar Órfãos</button>
     </div>
 
     <!-- Cards de saldo -->
@@ -814,10 +814,11 @@ window.addEventListener('appinstalled', () => {
     <!-- Histórico de movimentações -->
     <div class="section-top" style="margin-bottom:12px">
       <div class="section-title">Movimentações</div>
-      <div style="display:flex;gap:8px">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
         <button class="filter-btn active" id="filtCaixa_todos" onclick="setFiltCaixa('todos',this)">Todas</button>
         <button class="filter-btn" id="filtCaixa_entrada" onclick="setFiltCaixa('entrada',this)">✅ Entradas</button>
         <button class="filter-btn" id="filtCaixa_saida" onclick="setFiltCaixa('saida',this)">➖ Saídas</button>
+        <button class="btn btn-danger" onclick="zerarCaixaCompleto()" style="font-size:12px;padding:7px 14px;white-space:nowrap" title="Apagar todos os pagamentos e gastos">🗑️ Zerar Caixa</button>
       </div>
     </div>
 
@@ -4288,6 +4289,22 @@ function limparPagamentosOrfaos() {
   salvarDados();
   renderAll();
   mostrarToast('✅ Pagamentos órfãos removidos!');
+}
+
+function zerarCaixaCompleto() {
+  const totalPag = pagamentos.length;
+  const totalGas = gastos.length;
+  if (totalPag === 0 && totalGas === 0) {
+    mostrarToast('ℹ️ Caixa já está vazio.');
+    return;
+  }
+  if (!confirm(`⚠️ ATENÇÃO!\n\nIsso vai apagar:\n• ${totalPag} pagamento(s)\n• ${totalGas} gasto(s)\n• Saldo bancário\n\nEsta ação NÃO pode ser desfeita.\n\nTem certeza?`)) return;
+  pagamentos = [];
+  gastos = [];
+  saldoBanco = null;
+  salvarDados();
+  renderAll();
+  mostrarToast('🗑️ Caixa zerado com sucesso!');
 }
 
 // Toggle Editar Membros na aba Membros
