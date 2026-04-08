@@ -2268,7 +2268,13 @@ function openModal(tipo) {
 }
 
 function closeModal(tipo) {
-  const el = document.getElementById('modal' + (tipo === 'membro' ? 'Membro' : 'Pagamento'));
+  let id;
+  if (tipo === 'membro') id = 'modalMembro';
+  else if (tipo === 'pagamento') id = 'modalPagamento';
+  else if (tipo === 'apiKey') id = 'modalApiKey';
+  else id = 'modal' + tipo.charAt(0).toUpperCase() + tipo.slice(1);
+  const el = document.getElementById(id);
+  if (!el) return;
   if (tipo === 'membro') el.dataset.editingId = '';
   el.classList.remove('open');
 }
@@ -3106,12 +3112,17 @@ function abrirConfigApi() {
 
 function salvarApiKey() {
   const val = document.getElementById('apiKeyInput').value.trim();
-  if (!val) { alert('Digite a chave antes de salvar.'); return; }
-  if (!val.startsWith('sk-ant-')) { alert('Chave inválida. Deve começar com sk-ant-'); return; }
-  localStorage.setItem('anthropic_api_key', val);
+  if (!val) { mostrarToast('⚠️ Digite a chave antes de salvar.'); return; }
+  if (!val.startsWith('sk-ant-')) { mostrarToast('❌ Chave inválida. Deve começar com sk-ant-'); return; }
+  try {
+    localStorage.setItem('anthropic_api_key', val);
+  } catch(e) {
+    mostrarToast('❌ Erro ao salvar: ' + e.message);
+    return;
+  }
   atualizarBotaoApi();
   closeModal('apiKey');
-  alert('✅ Chave salva! Agora a leitura de PDF com IA está ativada.');
+  mostrarToast('✅ Chave salva! Leitura de PDF com IA ativada.');
 }
 
 function atualizarBotaoApi() {
