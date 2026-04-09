@@ -1703,9 +1703,28 @@ async function carregarNuvem() {
     }
 
     if (d.membros && d.membros.length > 0) membros = d.membros;
-    if (d.pagamentos && d.pagamentos.length > 0) pagamentos = d.pagamentos;
-    if (d.gastos && d.gastos.length > 0) gastos = d.gastos;
-    if (d.saldoBanco) saldoBanco = d.saldoBanco;
+
+    // Só usa pagamentos/gastos da nuvem se forem mais recentes que o local
+    const localJson = localStorage.getItem('jovens_ibc_dados');
+    const savedAtLocal = localJson ? new Date(JSON.parse(localJson).savedAt || 0) : new Date(0);
+    const savedAtNuvem = d.savedAt ? new Date(d.savedAt) : new Date(0);
+
+    if (savedAtNuvem >= savedAtLocal) {
+      if (d.pagamentos) pagamentos = d.pagamentos;
+      if (d.gastos) gastos = d.gastos;
+      if (d.saldoBanco) saldoBanco = d.saldoBanco;
+    }
+    // Se local é mais recente (ex: após zerar), mantém o local e atualiza a nuvem
+    else {
+      mostrarToast('🔄 Dados locais mais recentes. Sincronizando...');
+      try {
+        await fetch(JSONBIN_URL, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_KEY },
+          body: JSON.stringify({ membros, pagamentos, gastos, saldoBanco, savedAt: localJson ? JSON.parse(localJson).savedAt : new Date().toISOString() })
+        });
+      } catch(e) {}
+    }
     try { localStorage.setItem('jovens_ibc_dados', JSON.stringify({ membros, pagamentos, gastos, saldoBanco, savedAt: new Date().toISOString() })); } catch(e) {}
     setCloudStatus('ok');
     return true;
@@ -4316,9 +4335,23 @@ function zerarCaixaCompleto() {
   pagamentos = [];
   gastos = [];
   saldoBanco = null;
-  salvarDados();
+  // Salva localmente com timestamp atual
+  const agora = new Date().toISOString();
+  try { localStorage.setItem('jovens_ibc_dados', JSON.stringify({ membros, pagamentos, gastos, saldoBanco, savedAt: agora })); } catch(e) {}
+  // Salva NA NUVEM IMEDIATAMENTE (sem debounce) para não ser sobrescrito
+  setCloudStatus('saving');
+  fetch(JSONBIN_URL, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_KEY },
+    body: JSON.stringify({ membros, pagamentos: [], gastos: [], saldoBanco: null, savedAt: agora })
+  }).then(() => {
+    setCloudStatus('ok');
+    mostrarToast('🗑️ Caixa zerado e salvo na nuvem!');
+  }).catch(() => {
+    setCloudStatus('error');
+    mostrarToast('🗑️ Caixa zerado localmente. Salve o Excel como backup!');
+  });
   renderAll();
-  mostrarToast('🗑️ Caixa zerado com sucesso!');
 }
 
 // Toggle Editar Membros na aba Membros
